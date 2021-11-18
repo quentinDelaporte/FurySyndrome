@@ -40,10 +40,12 @@ public class FurySyndrom extends ApplicationAdapter {
 	private float volume = 1f;
 	private Parameter parameter;
 	private Mage j1;
-
+	private int windowWidth = 2000;
+	private int windowHeight = 800;
 
 	@Override
 	public void create() {
+		Gdx.graphics.setWindowedMode(windowWidth, windowHeight);
 		batch = new SpriteBatch();
 		drawCamera();
 		map01 = new Map("../Assets/Map/map.tmx");
@@ -60,9 +62,12 @@ public class FurySyndrom extends ApplicationAdapter {
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render(layerToRender);
 		batch.begin();
-		j1.draw(batch, stateTime);
-
+		if(j1.isJumping()){
+			j1.move();		
+		}
 		keyPressed();
+		j1.draw(batch, stateTime);
+		
 
 		camera.update();
 		batch.end();
@@ -79,29 +84,29 @@ public class FurySyndrom extends ApplicationAdapter {
 
 	private void drawCamera() {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 600);
+		camera.setToOrtho(false, windowWidth, windowHeight);
+		camera.position.x = 1200;
+		camera.position.y = 700;
 		camera.update();
 	}
 
-
 	private void keyPressed() {
-		System.out.println("keyPressed");
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			camera.position.x -= 100 * Gdx.graphics.getDeltaTime();
-		} 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			camera.position.x += 100 * Gdx.graphics.getDeltaTime();
-		} 
-		if (Gdx.input.isKeyPressed(Keys.UP)) {
-			camera.position.y += 100 * Gdx.graphics.getDeltaTime();
-		} 
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-			camera.position.y -= 100 * Gdx.graphics.getDeltaTime();
-		} 
-		if (Gdx.input.isKeyPressed(Keys.A)) {
+			j1.setFacingToRight();
 			j1.move();
 		} 
-		System.out.println(camera.position.x);
-		System.out.println(camera.position.y);
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			j1.setFacingToLeft();
+			j1.move();		
+		} 
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
+			j1.setJumping();
+			j1.move();
+		} 
+		if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+			// camera.position.y -= 100 * Gdx.graphics.getDeltaTime();
+		} 
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+		} 
 	}
 }
