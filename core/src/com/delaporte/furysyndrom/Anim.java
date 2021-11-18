@@ -1,4 +1,4 @@
-package com.delaporte;
+package com.delaporte.furysyndrom;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
