@@ -9,10 +9,14 @@ import com.delaporte.furysyndrom.Map;
 
 public class Ninja extends Character {
     public Ninja(
+        Map m, 
+        int collisionLayer,
         float xPosition, 
         float yPosition
     ){
         super(
+            m,
+            collisionLayer,
             125,
             20, 
             20,

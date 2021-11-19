@@ -30,6 +30,8 @@ public abstract class Character {
     public final Anim staticCharacterAnimation;
     public final double jumpHeight;
     public float initialY;
+    public Map m;
+    public int collisionLayer;
 
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
@@ -40,6 +42,8 @@ public abstract class Character {
     }
     
     protected Character(
+        Map m, 
+        int collisionLayer,
         int hp,
         int strength, 
         int defense, 
@@ -52,6 +56,8 @@ public abstract class Character {
         Anim staticCharacterAnimation, 
         double jumpHeight
     ){
+        this.m = m;
+        this.collisionLayer = collisionLayer;
         this.hp = hp;
         this.maxHp = hp;
         this.defense = defense;
@@ -122,7 +128,7 @@ public abstract class Character {
         return (this.etat == CharacterEtat.FALL || this.etat == CharacterEtat.FALLWALK || this.etat == CharacterEtat.FALLRUN);
     }
 
-    public void setJumping(){
+    public void setCharacterEtatJUMP(){
         if(
             this.etat != CharacterEtat.JUMP &&
             this.etat != CharacterEtat.JUMPWALK &&
@@ -142,7 +148,7 @@ public abstract class Character {
         } else {
             movespeed = 0;
         }
-        if(this.facing == CharacterFacing.LEFT){
+        if(this.facing == CharacterFacing.RIGHT){
             this.xPosition += movespeed;
             hitbox.x += movespeed;
         } else {
@@ -156,7 +162,42 @@ public abstract class Character {
         if(this.etat == CharacterEtat.FALL || this.etat == CharacterEtat.FALLWALK || this.etat == CharacterEtat.FALLRUN){
             fall();
         }
+        if(this.etat !=CharacterEtat.JUMP && this.etat != CharacterEtat.JUMPRUN && this.etat != CharacterEtat.JUMPWALK){
+            appliquerGravite();
+        }
     }
+
+    public void appliquerGravite(){
+        if(!this.isJumping()){
+            if(!detectCollision()){
+                hitbox.y -= 4;
+            } else {
+
+            }
+        }
+    }
+
+    public boolean detectCollision() {
+        MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
+		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if (Intersector.overlaps(rectangle, hitbox)){
+                System.out.println("true");
+				return true;
+            }
+		}
+		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
+			Polygon polygon = polygonObject.getPolygon();
+			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
+					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon)){
+                System.out.println("true");
+                return true;
+            }
+		}
+            System.out.println("False");
+            return false;
+	}
 
     public void fall(){
         if(yPosition > initialY) {
@@ -214,6 +255,14 @@ public abstract class Character {
 
     public void setCharacterEtatFALLRUN(){
         this.etat = CharacterEtat.FALLRUN;
+    }
+
+    public void setCharacterEtatFALLWALK(){
+        this.etat = CharacterEtat.FALLWALK;
+    }
+
+    public void setCharacterEtatFALLSTATIC(){
+        this.etat = CharacterEtat.FALL;
     }
 
     public void setCharacterEtatJUMPWALK(){

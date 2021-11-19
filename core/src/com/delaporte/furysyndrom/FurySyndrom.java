@@ -14,7 +14,7 @@ import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6 };
+	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6};
 	private OrthographicCamera camera;
 	private TiledMapRenderer tiledMapRenderer;
 	private Map map01;
@@ -39,7 +39,7 @@ public class FurySyndrom extends ApplicationAdapter {
 
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
-		j1 = new Mage(0,0);
+		j1 = new Mage(map01,7,200,700);
 	}
 
 	@Override

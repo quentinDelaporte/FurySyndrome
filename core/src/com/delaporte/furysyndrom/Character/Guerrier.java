@@ -8,11 +8,15 @@ import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
 
 public class Guerrier extends Character {
-    public Guerrier(
+    public Guerrier(        
+        Map m, 
+        int collisionLayer,
         float xPosition, 
         float yPosition
     ){
         super(
+            m,
+            collisionLayer,
             150,
             10, 
             50,

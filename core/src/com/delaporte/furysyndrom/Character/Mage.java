@@ -2,15 +2,20 @@ package com.delaporte.furysyndrom.Character;
 
 import com.badlogic.gdx.Gdx;
 import com.delaporte.furysyndrom.Anim;
+import com.delaporte.furysyndrom.Map;
 
 public class Mage extends Character {
 
 
     public Mage(
+        Map m, 
+        int collisionLayer,
         float xPosition, 
         float yPosition
     ){
         super(
+            m,
+            collisionLayer,
             100,
             20, 
             25,

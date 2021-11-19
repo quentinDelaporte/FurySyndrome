@@ -62,20 +62,5 @@ public class Map {
         return objects;
     }
 
-    public boolean detectColision(Rectangle hitbox, int collisionLayer) {
-        MapObjects collisionObjects = this.getCollisionTile(collisionLayer);
-		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
-			Rectangle rectangle = rectangleObject.getRectangle();
-			if (Intersector.overlaps(rectangle, hitbox))
-				return true;
-		}
-		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
-			Polygon polygon = polygonObject.getPolygon();
-			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
-					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
-			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
-				return true;
-		}
-		return false;
-	}
+   
 }

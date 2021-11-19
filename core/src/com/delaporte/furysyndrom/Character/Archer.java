@@ -9,10 +9,14 @@ import com.delaporte.furysyndrom.Map;
 
 public class Archer extends Character {
     public Archer(
+        Map m, 
+        int collisionLayer,
         float xPosition, 
         float yPosition
     ){
         super(
+            m, 
+            collisionLayer,
             100,
             20, 
             25,
