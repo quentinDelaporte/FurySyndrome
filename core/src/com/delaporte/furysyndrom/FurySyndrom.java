@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 
 import com.delaporte.furysyndrom.Character.Mage;
+import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -24,6 +25,8 @@ public class FurySyndrom extends ApplicationAdapter {
 	private int windowWidth = 2000;
 	private int windowHeight = 800;
 	private KeyEvent KeyEvent = new KeyEvent();
+	private BackgroundMusic musicMenu;
+	private float volume = 1f;
 
 	@Override
 	public void create() {
@@ -32,6 +35,7 @@ public class FurySyndrom extends ApplicationAdapter {
 		drawCamera();
 		map01 = new Map("../Assets/Map/map.tmx");
 		collisionObjects = map01.getCollisionTile(7);
+		musicMenu = new BackgroundMusic(volume, "../Assets/Sound/Music/Battle-1.mp3");
 
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();

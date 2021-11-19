@@ -27,7 +27,16 @@ public class KeyEvent {
 		    } else {
                 j1.setCharacterEtatSTATIC();
             }
-        } else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+        } else if (Gdx.input.isKeyPressed(Keys.UP)) {
+
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+            } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+            } else {
+
+            }
+		    if(!j1.isJumping() && !j1.isFalling()) j1.setJumping();
+
+		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			j1.setFacingToRight();
             if(j1.isJumping()) j1.setCharacterEtatJUMPRUN();
             else if(j1.isFalling()) j1.setCharacterEtatFALLRUN();
@@ -37,9 +46,7 @@ public class KeyEvent {
             if(j1.isJumping()) j1.setCharacterEtatJUMPRUN();
             else if(j1.isFalling()) j1.setCharacterEtatFALLRUN();
             else j1.setCharacterEtatWALK();
-        } else if (Gdx.input.isKeyPressed(Keys.UP)) {
-		    if(!j1.isJumping() && !j1.isFalling()) j1.setJumping();
-		} else {
+        } else {
 			if(!j1.isJumping() && !j1.isFalling()) j1.setCharacterEtatSTATIC();
         }
     }    	
