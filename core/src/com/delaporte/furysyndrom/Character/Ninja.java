@@ -2,8 +2,10 @@ package com.delaporte.furysyndrom.Character;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.Gdx;
 import com.delaporte.furysyndrom.Anim;
+import com.delaporte.furysyndrom.Map;
 
 public class Ninja extends Character {
     public Ninja(
@@ -31,13 +33,6 @@ public class Ninja extends Character {
 
     }
 
-    @Override
-    public void move() {
-        if(this.facing == CharacterFacing.LEFT){
-            this.xPosition -= 0.8;
-        } else {
-            this.xPosition += 0.8;
-        }
-    }
+
 
 }

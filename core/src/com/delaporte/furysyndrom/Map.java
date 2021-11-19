@@ -6,7 +6,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 public class Map {
     private TiledMapRenderer tiledMapRenderer;
@@ -56,4 +61,21 @@ public class Map {
 
         return objects;
     }
+
+    public boolean detectColision(Rectangle hitbox, int collisionLayer) {
+        MapObjects collisionObjects = this.getCollisionTile(collisionLayer);
+		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if (Intersector.overlaps(rectangle, hitbox))
+				return true;
+		}
+		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
+			Polygon polygon = polygonObject.getPolygon();
+			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
+					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
+				return true;
+		}
+		return false;
+	}
 }

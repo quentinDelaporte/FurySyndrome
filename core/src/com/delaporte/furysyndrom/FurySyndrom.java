@@ -46,10 +46,9 @@ public class FurySyndrom extends ApplicationAdapter {
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render(layerToRender);
 		batch.begin();
-		j1.move();
+		j1.move(map01, collisionObjects);
 		KeyEvent.keyPressed(j1);
 		j1.draw(batch, stateTime);
-		
 
 		camera.update();
 		batch.end();

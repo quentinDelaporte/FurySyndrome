@@ -2,8 +2,10 @@ package com.delaporte.furysyndrom.Character;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.Gdx;
 import com.delaporte.furysyndrom.Anim;
+import com.delaporte.furysyndrom.Map;
 
 public class Archer extends Character {
     public Archer(
@@ -32,7 +34,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public void move() {
+    public void move(Map map, MapObjects collisionLayer) {
         if(this.facing == CharacterFacing.LEFT){
             this.xPosition -= 0.8;
         } else {

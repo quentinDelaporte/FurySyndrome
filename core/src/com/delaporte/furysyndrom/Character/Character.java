@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.delaporte.furysyndrom.Anim;
+import com.delaporte.furysyndrom.Map;
 
 public abstract class Character {
     public int hp;
@@ -132,7 +133,7 @@ public abstract class Character {
         initialY = yPosition;
     }
 
-    public void move() {
+    public void move(Map map, MapObjects collisionLayer) {
         double movespeed = 0;
         if(this.etat == CharacterEtat.WALK || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.FALLWALK ){
             movespeed = 1 + (this.agility/100);
@@ -149,10 +150,10 @@ public abstract class Character {
             hitbox.x -= movespeed;
         }
 
-        if(this.etat == CharacterEtat.JUMP){
+        if(this.etat == CharacterEtat.JUMP || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.JUMPRUN){
             jump();
         }
-        if(this.etat == CharacterEtat.FALL) {
+        if(this.etat == CharacterEtat.FALL || this.etat == CharacterEtat.FALLWALK || this.etat == CharacterEtat.FALLRUN){
             fall();
         }
     }
@@ -222,22 +223,6 @@ public abstract class Character {
     public void setCharacterEtatRUNWALK(){
         this.etat = CharacterEtat.FALLRUN;
     }
-
-    public boolean collisionDetectionWithMap(MapObjects collisionObjects) {
-		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
-			Rectangle rectangle = rectangleObject.getRectangle();
-			if (Intersector.overlaps(rectangle, hitbox))
-				return true;
-		}
-		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
-			Polygon polygon = polygonObject.getPolygon();
-			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
-					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
-			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
-				return true;
-		}
-		return false;
-	}
 
     public void setStatic(){
         this.etat = CharacterEtat.STATIC;
