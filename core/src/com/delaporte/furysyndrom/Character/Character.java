@@ -139,7 +139,7 @@ public abstract class Character {
         initialY = yPosition;
     }
 
-    public void move(Map map, MapObjects collisionLayer) {
+    public void move() {
         double movespeed = 0;
         if(this.etat == CharacterEtat.WALK || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.FALLWALK ){
             movespeed = 1 + (this.agility/100);
@@ -172,7 +172,6 @@ public abstract class Character {
             if(!detectCollision()){
                 hitbox.y -= 4;
             } else {
-
             }
         }
     }
@@ -181,22 +180,17 @@ public abstract class Character {
         MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
 		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
-			if (Intersector.overlaps(rectangle, hitbox)){
-                System.out.println("true");
+			if (Intersector.overlaps(rectangle, hitbox))
 				return true;
-            }
 		}
 		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
 			Polygon polygon = polygonObject.getPolygon();
 			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
 					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
-			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon)){
-                System.out.println("true");
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
                 return true;
-            }
 		}
-            System.out.println("False");
-            return false;
+        return false;
 	}
 
     public void fall(){

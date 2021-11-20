@@ -38,7 +38,7 @@ public class Guerrier extends Character {
     }
 
     @Override
-    public void move(Map map, MapObjects collisionLayer) {
+    public void move() {
         if(this.facing == CharacterFacing.LEFT){
             this.xPosition -= 0.8;
         } else {
