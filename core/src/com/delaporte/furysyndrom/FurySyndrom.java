@@ -13,7 +13,7 @@ import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6, 9};
+	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6};
 	private OrthographicCamera camera;
 	private TiledMapRenderer tiledMapRenderer;
 	private Map map01;
@@ -31,8 +31,8 @@ public class FurySyndrom extends ApplicationAdapter {
 		Gdx.graphics.setWindowedMode(windowWidth, windowHeight);
 		batch = new SpriteBatch();
 		drawCamera();
-		map01 = new Map("../Assets/Map/map.tmx");
-		musicMenu = new BackgroundMusic(volume, "../Assets/Sound/Music/Battle-1.mp3");
+		map01 = new Map("../../Assets/Map/map2.tmx");
+		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
 
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();

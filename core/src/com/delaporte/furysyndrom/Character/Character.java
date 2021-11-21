@@ -9,6 +9,9 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public abstract class Character {
     public int hp;
@@ -32,6 +35,9 @@ public abstract class Character {
     public float initialY;
     public Map m;
     public int collisionLayer;
+    private 
+    ShapeRenderer shapeRenderer = new ShapeRenderer();
+
 
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
@@ -71,7 +77,7 @@ public abstract class Character {
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.hitbox = new Rectangle((int) (xPosition+0.25*width), (int)( yPosition+0.25*height), (int) (0.5*this.width), (int) (0.5*this.height));
+        this.hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
         this.staticCharacterAnimation = staticCharacterAnimation;
@@ -118,6 +124,7 @@ public abstract class Character {
     public void draw(SpriteBatch batch, float stateTime) {
         batch.draw(staticCharacterAnimation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
         hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
+        // renderHitbox(hitbox);
     }
 
 	public boolean isJumping(){
@@ -206,7 +213,7 @@ public abstract class Character {
 	}
 
     public boolean detectCollision(float x, float y, int w, int h) {
-        Rectangle futurHitbox = new Rectangle(x, y, w, h);    
+        Rectangle futurHitbox = new Rectangle((int) (x+0.25*w), (int)(y+0.25*h), (int) (0.5*w), (int) (0.5*h));   
         MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
 		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
@@ -215,9 +222,12 @@ public abstract class Character {
 		}
 		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
 			Polygon polygon = polygonObject.getPolygon();
-			Polygon hitboxPolygon = new Polygon(new float[] { x, y, x + w, y, x + w, y + h, y, y + h });
-			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
-                return true;
+			Polygon hitboxPolygon = new Polygon(new float[] { (int) (x+0.25*w), (int)(y+0.25*h), (int) (x+0.25*w) + (int)(0.25*w), (int)(y+0.25*h),
+                (int) (x+0.25*w) + (int)(0.25*w), (int)(y+0.25*h) + (int)(0.25*h), (int) (x+0.25*w), (int)(y+0.25*h) + (int)(0.25*h) });
+
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon)) {
+				return true;
+			}
 		}
         return false;
 	}
@@ -349,4 +359,11 @@ public abstract class Character {
     public void setStatic(){
         this.etat = CharacterEtat.STATIC;
     }
+
+    public void renderHitbox(Rectangle h){
+        shapeRenderer.begin(ShapeType.Filled) ;
+        shapeRenderer.rect(h.x, h.y, h.width, h.height) ;
+        shapeRenderer.end();
+    }
+
 }
