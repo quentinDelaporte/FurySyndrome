@@ -10,6 +10,9 @@ public class KeyEvent {
     }
 
     public void keyPressed(Character j){
+        if(Gdx.input.isKeyPressed(Keys.UP)){
+            System.out.println("UP PRESSED");
+        }
         this.j = j;
         if (Gdx.input.isKeyPressed(Keys.LEFT)) j.setFacingToLeft();
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)) j.setFacingToRight();

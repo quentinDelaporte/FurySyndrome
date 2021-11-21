@@ -7,23 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6};
+	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6, 9};
 	private OrthographicCamera camera;
 	private TiledMapRenderer tiledMapRenderer;
 	private Map map01;
 	private float stateTime;
-	private MapObjects collisionObjects;
 	private Parameter parameter;
 	private Mage j1;
 	private int windowWidth = 1920;
@@ -38,12 +32,11 @@ public class FurySyndrom extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		drawCamera();
 		map01 = new Map("../Assets/Map/map.tmx");
-		collisionObjects = map01.getCollisionTile(7);
 		musicMenu = new BackgroundMusic(volume, "../Assets/Sound/Music/Battle-1.mp3");
 
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
-		j1 = new Mage(map01,8,200,700);
+		j1 = new Mage(map01,7,200,700);
 	}
 
 	@Override
@@ -60,24 +53,6 @@ public class FurySyndrom extends ApplicationAdapter {
 
 		camera.update();
 		batch.end();
-	}
-
-
-	public boolean collisionDetectionWithMap(Rectangle hitbox) {
-		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
-			Rectangle rectangle = rectangleObject.getRectangle();
-			if (Intersector.overlaps(rectangle, hitbox)) 
-				return true;
-		}
-		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
-			Polygon polygon = polygonObject.getPolygon();
-			Polygon hitboxPolygon = new Polygon(new float[] { hitbox.x, hitbox.y, hitbox.x + hitbox.width, hitbox.y,
-					hitbox.x + hitbox.width, hitbox.y + hitbox.height, hitbox.x, hitbox.y + hitbox.height });
-			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon)) 
-				return true;
-		}
-		return false;
-
 	}
 
 	@Override

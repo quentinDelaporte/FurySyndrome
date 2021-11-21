@@ -71,7 +71,7 @@ public abstract class Character {
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
+        this.hitbox = new Rectangle((int) (xPosition+0.25*width), (int)( yPosition+0.25*height), (int) (0.5*this.width), (int) (0.5*this.height));
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
         this.staticCharacterAnimation = staticCharacterAnimation;
@@ -135,11 +135,14 @@ public abstract class Character {
             this.etat != CharacterEtat.JUMPRUN
         ){
             this.etat = CharacterEtat.JUMP;
+            initialY = yPosition;
+        } else if(this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.JUMPRUN) {
+            this.etat = CharacterEtat.JUMPWALK;
         }
-        initialY = yPosition;
     }
 
     public void move() {
+        System.out.println(etat);
         double movespeed = 0;
         if(this.etat == CharacterEtat.WALK || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.FALLWALK ){
             movespeed = 1 + (this.agility/100);
@@ -149,18 +152,19 @@ public abstract class Character {
             movespeed = 0;
         }
         if(this.facing == CharacterFacing.RIGHT){
-            this.xPosition += movespeed;
-            hitbox.x += movespeed;
+            if(!detectCollision((float)(xPosition+movespeed), yPosition, width, height)){
+                this.xPosition += movespeed;
+                hitbox.x += movespeed;
+            }
         } else {
-            this.xPosition -= movespeed;
-            hitbox.x -= movespeed;
+            if(!detectCollision((float)(xPosition-movespeed), yPosition, width, height)){
+                this.xPosition -= movespeed;
+                hitbox.x -= movespeed;
+            }
         }
 
         if(this.etat == CharacterEtat.JUMP || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.JUMPRUN){
             jump();
-        }
-        if(this.etat == CharacterEtat.FALL || this.etat == CharacterEtat.FALLWALK || this.etat == CharacterEtat.FALLRUN){
-            fall();
         }
         if(this.etat !=CharacterEtat.JUMP && this.etat != CharacterEtat.JUMPRUN && this.etat != CharacterEtat.JUMPWALK){
             appliquerGravite();
@@ -169,10 +173,18 @@ public abstract class Character {
 
     public void appliquerGravite(){
         if(!this.isJumping()){
-            if(!detectCollision()){
-                hitbox.y -= 4;
-            } else {
-            }
+            decrementY();
+        }
+    }
+
+    public void decrementY(){
+        if(!detectCollision(xPosition, yPosition-4, width, height)){
+            this.etat = CharacterEtat.FALL;
+            hitbox.y -= 4;
+            this.yPosition -= 4;
+        } else {
+            this.etat = CharacterEtat.STATIC;
+
         }
     }
 
@@ -193,27 +205,76 @@ public abstract class Character {
         return false;
 	}
 
+    public boolean detectCollision(float x, float y, int w, int h) {
+        Rectangle futurHitbox = new Rectangle(x, y, w, h);    
+        MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
+		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if (Intersector.overlaps(rectangle, futurHitbox))
+				return true;
+		}
+		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
+			Polygon polygon = polygonObject.getPolygon();
+			Polygon hitboxPolygon = new Polygon(new float[] { x, y, x + w, y, x + w, y + h, y, y + h });
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
+                return true;
+		}
+        return false;
+	}
+
+    public boolean detectCollision(Rectangle futurHitbox) {
+        MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
+		for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if (Intersector.overlaps(rectangle, futurHitbox))
+				return true;
+		}
+		for (PolygonMapObject polygonObject : collisionObjects.getByType(PolygonMapObject.class)) {
+			Polygon polygon = polygonObject.getPolygon();
+			Polygon hitboxPolygon = new Polygon(new float[] { futurHitbox.x, futurHitbox.y, futurHitbox.x + futurHitbox.width, futurHitbox.y,
+					futurHitbox.x + futurHitbox.width, futurHitbox.y + futurHitbox.height, futurHitbox.x, futurHitbox.y + futurHitbox.height });
+			if (Intersector.overlapConvexPolygons(polygon, hitboxPolygon))
+                return true;
+		}
+        return false;
+	}
+
     public void fall(){
         if(yPosition > initialY) {
-            this.yPosition -= 4; 
-            hitbox.y -= 4;
+            decrementY();
         } else {
             this.etat = CharacterEtat.STATIC;
         }
     }
     public void jump(){
         if(yPosition < initialY + ((jumpHeight * 32) * 0.3)) {
-            this.yPosition += 4; 
-            hitbox.y += 4;
+            if(!detectCollision(xPosition, yPosition+4, width, height)){
+                this.yPosition += 4; 
+                hitbox.y += 4;
+            } else {
+                this.etat = CharacterEtat.FALL;
+            }
         } else if(yPosition < initialY + ((jumpHeight * 32) * 0.5)) {
-            this.yPosition += 2; 
-            hitbox.y += 2;
+            if(!detectCollision(xPosition, yPosition+2, width, height)){
+                this.yPosition += 2; 
+                hitbox.y += 2;
+            } else {
+                this.etat = CharacterEtat.FALL;
+            }
         } else  if(yPosition < initialY + ((jumpHeight * 32) * 0.7)) {
-            this.yPosition += 1; 
-            hitbox.y += 1;
+            if(!detectCollision(xPosition, yPosition+1, width, height)){
+                this.yPosition += 1; 
+                hitbox.y += 1;
+            } else {
+                this.etat = CharacterEtat.FALL;
+            }
         } else if(yPosition < initialY + (jumpHeight * 32)) {
-            this.yPosition += 0.5;
-            hitbox.y += 0.5;
+            if(!detectCollision(xPosition, (float)(yPosition+0.5), width, height)){
+                this.yPosition += 0.5;
+                hitbox.y += 0.5;
+            } else {
+                this.etat = CharacterEtat.FALL;
+            }
         } else if(yPosition >= initialY + (jumpHeight * 32)) {
             this.etat = CharacterEtat.FALL;
         }
@@ -244,7 +305,16 @@ public abstract class Character {
     }
 
     public void setCharacterEtatJUMPRUN(){
-        this.etat = CharacterEtat.JUMPRUN;
+    if(
+            this.etat != CharacterEtat.JUMP &&
+            this.etat != CharacterEtat.JUMPWALK &&
+            this.etat != CharacterEtat.JUMPRUN
+        ){
+            this.etat = CharacterEtat.JUMPRUN;
+            initialY = yPosition;
+        } else if(this.etat == CharacterEtat.JUMP || this.etat == CharacterEtat.JUMPWALK) {
+            this.etat = CharacterEtat.JUMPWALK;
+        }
     }
 
     public void setCharacterEtatFALLRUN(){
@@ -260,7 +330,16 @@ public abstract class Character {
     }
 
     public void setCharacterEtatJUMPWALK(){
-        this.etat = CharacterEtat.JUMPRUN;
+        if(
+            this.etat != CharacterEtat.JUMP &&
+            this.etat != CharacterEtat.JUMPWALK &&
+            this.etat != CharacterEtat.JUMPRUN
+        ){
+            this.etat = CharacterEtat.JUMPWALK;
+            initialY = yPosition;
+        } else if(this.etat == CharacterEtat.JUMP || this.etat == CharacterEtat.JUMPRUN) {
+            this.etat = CharacterEtat.JUMPWALK;
+        }
     }
 
     public void setCharacterEtatRUNWALK(){
