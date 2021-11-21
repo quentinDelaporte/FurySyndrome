@@ -30,14 +30,13 @@ public abstract class Character {
     public Rectangle hitbox;
     public CharacterEtat etat;
     public CharacterFacing facing;
-    public final Anim staticCharacterAnimation;
+    public Anim Animation;
     public final double jumpHeight;
     public float initialY;
     public Map m;
     public int collisionLayer;
     private 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
-
 
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
@@ -59,7 +58,7 @@ public abstract class Character {
         float yPosition, 
         int width, 
         int height, 
-        Anim staticCharacterAnimation, 
+        Anim Animation, 
         double jumpHeight
     ){
         this.m = m;
@@ -80,7 +79,7 @@ public abstract class Character {
         this.hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
-        this.staticCharacterAnimation = staticCharacterAnimation;
+        this.Animation = Animation;
         this.jumpHeight = jumpHeight;
     }
 
@@ -122,7 +121,8 @@ public abstract class Character {
 
 
     public void draw(SpriteBatch batch, float stateTime) {
-        batch.draw(staticCharacterAnimation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
+        selectAnimation();
+        batch.draw(Animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
         hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
         // renderHitbox(hitbox);
     }
@@ -149,7 +149,6 @@ public abstract class Character {
     }
 
     public void move() {
-        System.out.println(etat);
         double movespeed = 0;
         if(this.etat == CharacterEtat.WALK || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.FALLWALK ){
             movespeed = 1 + (this.agility/100);
@@ -362,5 +361,7 @@ public abstract class Character {
         shapeRenderer.rect(h.x, h.y, h.width, h.height) ;
         shapeRenderer.end();
     }
+    
+    protected abstract void selectAnimation();
 
 }

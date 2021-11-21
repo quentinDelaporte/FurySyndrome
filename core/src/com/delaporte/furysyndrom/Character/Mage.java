@@ -30,5 +30,14 @@ public class Mage extends Character {
         );
     }
 
+    @Override
+    public void selectAnimation(){
+        if(this.etat == CharacterEtat.JUMPRUN){
+            this.Animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_JUMP.png"), 5, 1, 0.1f);
+        } else {
+            this.Animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_IDLE.png"), 5, 1, 0.1f);
+        }
+    }
+
 
 }

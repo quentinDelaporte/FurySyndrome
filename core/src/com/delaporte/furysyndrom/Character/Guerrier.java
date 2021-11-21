@@ -30,20 +30,7 @@ public class Guerrier extends Character {
             1
         );
     }
-    @Override
-    public void draw(SpriteBatch batch, float stateTime) {
-        batch.draw(staticCharacterAnimation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
-        hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
-
-    }
 
     @Override
-    public void move() {
-        if(this.facing == CharacterFacing.LEFT){
-            this.xPosition -= 0.8;
-        } else {
-            this.xPosition += 0.8;
-        }
-    }
-
+    public void selectAnimation(){}
 }
