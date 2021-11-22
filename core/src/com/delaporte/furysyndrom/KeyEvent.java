@@ -46,6 +46,10 @@ public class KeyEvent {
         }
     }
 
+    public boolean isAnyKeyPressed(){
+        return Gdx.input.isKeyPressed(Keys.ANY_KEY);
+    }
+
     public boolean canJump(){
         if( (
             !j.isFalling() && 
