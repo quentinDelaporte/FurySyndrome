@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.gui.MainScreen;
+import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -28,6 +29,7 @@ public class FurySyndrom extends ApplicationAdapter {
 	private float volume = 1f;
 	private int gameState = 0;
 	private MainScreen mainScreen;
+	private PlayerNumberSelectorScreen playerNumberSelectorScreen;
 
 	@Override
 	public void create() {
@@ -37,6 +39,7 @@ public class FurySyndrom extends ApplicationAdapter {
 		map01 = new Map("../../Assets/Map/map2.tmx");
 		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
 		mainScreen = new MainScreen();
+		playerNumberSelectorScreen = new PlayerNumberSelectorScreen();
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,200,700);
@@ -57,6 +60,11 @@ public class FurySyndrom extends ApplicationAdapter {
 			j1.draw(batch, stateTime);
 		} else if(gameState == 0) {
 			mainScreen.draw(batch, windowWidth, windowHeight);
+			if(KeyEvent.isAnyKeyPressed()){
+				gameState = 1;
+			}
+		} else if(gameState == 1){
+			playerNumberSelectorScreen.draw(batch, windowWidth, windowHeight);
 			if(KeyEvent.isAnyKeyPressed()){
 				gameState = 3;
 			}
