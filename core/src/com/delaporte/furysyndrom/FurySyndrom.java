@@ -12,6 +12,7 @@ import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.gui.MainScreen;
 import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
+import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -33,6 +34,7 @@ public class FurySyndrom extends ApplicationAdapter {
 	private MainScreen mainScreen;
 	private PlayerNumberSelectorScreen playerNumberSelectorScreen;
 	private Stage stage;
+	private ButtonSelectorPlayer ButtonSelectorPlayer2;
 
 	@Override
 	public void create() {
@@ -48,6 +50,7 @@ public class FurySyndrom extends ApplicationAdapter {
 		j1 = new Mage(map01,7,200,700);
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
+		ButtonSelectorPlayer2 = new ButtonSelectorPlayer("2");
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public class FurySyndrom extends ApplicationAdapter {
 		stateTime += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
+		Gdx.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
 		batch.begin();
 		if(gameState == 3){
 			tiledMapRenderer.setView(camera);
@@ -70,13 +73,19 @@ public class FurySyndrom extends ApplicationAdapter {
 			}
 		} else if(gameState == 1){
 			playerNumberSelectorScreen.draw(batch, windowWidth, windowHeight, stage);
-			if(KeyEvent.isAnyKeyPressed()){
-				gameState = 3;
-			}
+			// if(KeyEvent.isAnyKeyPressed()){
+			// 	gameState = 3;
+			// }
 		}
-
 		camera.update();
 		batch.end();
+		createGUI();
+	}
+
+	public void createGUI(){
+		if(gameState == 1){
+			ButtonSelectorPlayer2.draw();
+		}
 	}
 
 	@Override
