@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
@@ -12,9 +13,7 @@ import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.gui.MainScreen;
 import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.graphics.Texture;
+import com.delaporte.furysyndrom.gui.PauseScreen;
 
 
 public class FurySyndrom extends ApplicationAdapter {
@@ -33,8 +32,10 @@ public class FurySyndrom extends ApplicationAdapter {
 	private float volume = 1f;
 	private int gameState = 0;
 	private MainScreen mainScreen;
+	private PauseScreen pauseScreen;
 	private PlayerNumberSelectorScreen playerNumberSelectorScreen;
 	private int nbPlayer = 0;
+	private boolean isPaused = false;
 
 	@Override
 	public void create() {
@@ -44,6 +45,7 @@ public class FurySyndrom extends ApplicationAdapter {
 		map01 = new Map("../../Assets/Map/map2.tmx");
 		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
 		mainScreen = new MainScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/MainImage.png")));
+		pauseScreen = new PauseScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/Map/map2.png")));
 		playerNumberSelectorScreen = new PlayerNumberSelectorScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/HowManyPlayer.png")));
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
@@ -70,16 +72,29 @@ public class FurySyndrom extends ApplicationAdapter {
 			}
 		} else if(gameState == 2){
 		} else if(gameState == 3){
-			tiledMapRenderer.setView(camera);
-			tiledMapRenderer.render(layerToRender);
-			j1.move();
-			KeyEvent.keyPressed(j1);
-			j1.draw(batch, stateTime);
+			if(KeyEvent.isPauseKeyPressed()){
+				isPaused = true;
+				if(pauseScreen.isPaused()){
+					isPaused = false;
+				}
+			}
+			if(!isPaused){
+				tiledMapRenderer.setView(camera);
+				tiledMapRenderer.render(layerToRender);
+				j1.move();
+				KeyEvent.keyPressed(j1);
+				j1.draw(batch, stateTime);
+			} else {
+				pauseScreen.draw(batch, windowWidth, windowHeight);
+			}
 		} 
 		camera.update();
 		batch.end();
 		if(gameState == 1){
 			playerNumberSelectorScreen.drawScene();
+		}
+		if(isPaused){
+			pauseScreen.drawScene();
 		}
 	}
 

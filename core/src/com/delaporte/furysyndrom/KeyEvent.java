@@ -46,6 +46,10 @@ public class KeyEvent {
         }
     }
 
+    public boolean isPauseKeyPressed(){
+        return Gdx.input.isKeyPressed(Keys.ESCAPE);
+    }
+
     public boolean isAnyKeyPressed(){
         return Gdx.input.isKeyPressed(Keys.ANY_KEY);
     }

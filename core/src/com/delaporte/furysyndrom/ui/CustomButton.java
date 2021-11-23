@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public abstract class CustomButton {
   public Skin skin;
@@ -39,7 +40,7 @@ public abstract class CustomButton {
 
   protected abstract void generer();
 
-  public TextButton getButton(){
+  public Button getButton(){
     return button;
   }
 
