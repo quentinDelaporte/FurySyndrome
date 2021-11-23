@@ -14,6 +14,8 @@ import com.delaporte.furysyndrom.gui.MainScreen;
 import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.graphics.Texture;
+
 
 public class FurySyndrom extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -41,8 +43,8 @@ public class FurySyndrom extends ApplicationAdapter {
 		drawCamera();
 		map01 = new Map("../../Assets/Map/map2.tmx");
 		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
-		mainScreen = new MainScreen();
-		playerNumberSelectorScreen = new PlayerNumberSelectorScreen(windowWidth, windowHeight);
+		mainScreen = new MainScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/MainImage.png")));
+		playerNumberSelectorScreen = new PlayerNumberSelectorScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/HowManyPlayer.png")));
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,200,700);

@@ -4,14 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 
-public class MainScreen {
+public class MainScreen extends CustomScreen {
    
-    private Texture backgroundImg;
-    public MainScreen() {
-		backgroundImg = new Texture(Gdx.files.internal("../../Assets/MainImage.png"));
+
+    public MainScreen(int w, int h, Texture bckgrndImg) {
+		super(w, h, bckgrndImg);
     }
 
+	@Override
+	public void generate(){}
+
+	@Override
 	public void draw(SpriteBatch batch, int width, int height) {
-			batch.draw(backgroundImg, 0, 0, width, height);
+		batch.draw(backgroundImg, 0, 0, width, height);
 	}
 }
