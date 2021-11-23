@@ -5,8 +5,6 @@ import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
 
 public class Mage extends Character {
-
-
     public Mage(
         Map m, 
         int collisionLayer,

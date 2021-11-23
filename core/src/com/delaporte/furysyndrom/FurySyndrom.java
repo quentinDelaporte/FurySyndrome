@@ -12,7 +12,6 @@ import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.gui.MainScreen;
 import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
-import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -33,8 +32,7 @@ public class FurySyndrom extends ApplicationAdapter {
 	private int gameState = 0;
 	private MainScreen mainScreen;
 	private PlayerNumberSelectorScreen playerNumberSelectorScreen;
-	private Stage stage;
-	private ButtonSelectorPlayer ButtonSelectorPlayer2;
+	private int nbPlayer = 0;
 
 	@Override
 	public void create() {
@@ -44,13 +42,10 @@ public class FurySyndrom extends ApplicationAdapter {
 		map01 = new Map("../../Assets/Map/map2.tmx");
 		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
 		mainScreen = new MainScreen();
-		playerNumberSelectorScreen = new PlayerNumberSelectorScreen();
+		playerNumberSelectorScreen = new PlayerNumberSelectorScreen(windowWidth, windowHeight);
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,200,700);
-		stage = new Stage(new ScreenViewport());
-		Gdx.input.setInputProcessor(stage);
-		ButtonSelectorPlayer2 = new ButtonSelectorPlayer("2");
 	}
 
 	@Override
@@ -60,31 +55,29 @@ public class FurySyndrom extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
 		batch.begin();
-		if(gameState == 3){
-			tiledMapRenderer.setView(camera);
-			tiledMapRenderer.render(layerToRender);
-			j1.move();
-			KeyEvent.keyPressed(j1);
-			j1.draw(batch, stateTime);
-		} else if(gameState == 0) {
+		if(gameState == 0) {
 			mainScreen.draw(batch, windowWidth, windowHeight);
 			if(KeyEvent.isAnyKeyPressed()){
 				gameState = 1;
 			}
 		} else if(gameState == 1){
-			playerNumberSelectorScreen.draw(batch, windowWidth, windowHeight, stage);
-			// if(KeyEvent.isAnyKeyPressed()){
-			// 	gameState = 3;
-			// }
-		}
+			playerNumberSelectorScreen.draw(batch, windowWidth, windowHeight);
+			if(playerNumberSelectorScreen.getNbPlayer() != 0){
+				nbPlayer = playerNumberSelectorScreen.getNbPlayer();
+				gameState = 3;
+			}
+		} else if(gameState == 2){
+		} else if(gameState == 3){
+			tiledMapRenderer.setView(camera);
+			tiledMapRenderer.render(layerToRender);
+			j1.move();
+			KeyEvent.keyPressed(j1);
+			j1.draw(batch, stateTime);
+		} 
 		camera.update();
 		batch.end();
-		createGUI();
-	}
-
-	public void createGUI(){
 		if(gameState == 1){
-			ButtonSelectorPlayer2.draw();
+			playerNumberSelectorScreen.drawScene();
 		}
 	}
 
