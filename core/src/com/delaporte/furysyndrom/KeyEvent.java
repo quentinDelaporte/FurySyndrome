@@ -3,7 +3,8 @@ package com.delaporte.furysyndrom;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.delaporte.furysyndrom.Character.Character;
-
+//On creer notre propre gestionnaire d'event pour les touches car libgdx ne gere pas nativement les associations de touches
+// Sauf Ctrl, alt, shift cf: https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/scenes/scene2d/utils/UIUtils.java
 public class KeyEvent {
     private Character j; 
     public KeyEvent(){

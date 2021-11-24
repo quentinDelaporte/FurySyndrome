@@ -1,117 +1,44 @@
 package com.delaporte.furysyndrom;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.delaporte.furysyndrom.Character.Mage;
-import com.delaporte.furysyndrom.Sound.BackgroundMusic;
-import com.delaporte.furysyndrom.gui.MainScreen;
-import com.delaporte.furysyndrom.gui.PlayerNumberSelectorScreen;
-import com.delaporte.furysyndrom.gui.PauseScreen;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import com.delaporte.furysyndrom.Screen.GameScreen;
+import com.delaporte.furysyndrom.Screen.PlayerNumberSelectorScreen;
+import com.delaporte.furysyndrom.Screen.TitleScreen;
 
-public class FurySyndrom extends ApplicationAdapter {
-	private SpriteBatch batch;
-	private int layerToRender[] = { 0, 1, 2, 3, 4, 5, 6};
-	private OrthographicCamera camera;
-	private TiledMapRenderer tiledMapRenderer;
-	private Map map01;
-	private float stateTime;
-	private Parameter parameter;
-	private Mage j1;
-	private int windowWidth = 1920;
-	private int windowHeight = 800;
-	private KeyEvent KeyEvent = new KeyEvent();
-	private BackgroundMusic musicMenu;
-	private float volume = 1f;
-	private int gameState = 0;
-	private MainScreen mainScreen;
-	private PauseScreen pauseScreen;
-	private PlayerNumberSelectorScreen playerNumberSelectorScreen;
-	private int nbPlayer = 0;
-	private boolean isPaused = false;
+public class FurySyndrom extends Game {
 
-	@Override
-	public void create() {
-		Gdx.graphics.setWindowedMode(windowWidth, windowHeight);
-		batch = new SpriteBatch();
-		drawCamera();
-		map01 = new Map("../../Assets/Map/map2.tmx");
-		musicMenu = new BackgroundMusic(volume, "../../Assets/Sound/Music/Battle-1.mp3");
-		mainScreen = new MainScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/MainImage.png")));
-		pauseScreen = new PauseScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/Map/map2.png")));
-		playerNumberSelectorScreen = new PlayerNumberSelectorScreen(windowWidth, windowHeight, new Texture(Gdx.files.internal("../../Assets/HowManyPlayer.png")));
-		tiledMapRenderer = map01.getTiledMapRenderer();
-		parameter = new Parameter();
-		j1 = new Mage(map01,7,200,700);
-	}
+    public SpriteBatch batch;
+    public ShapeRenderer shapeRenderer;
+    public BitmapFont font;
+	public int w = 1920;
+	public int h = 800;
+	public OrthographicCamera camera;
 
-	@Override
-	public void render() {
-		stateTime += Gdx.graphics.getDeltaTime();
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
-		batch.begin();
-		if(gameState == 0) {
-			mainScreen.draw(batch, windowWidth, windowHeight);
-			if(KeyEvent.isAnyKeyPressed()){
-				gameState = 1;
-			}
-		} else if(gameState == 1){
-			playerNumberSelectorScreen.draw(batch, windowWidth, windowHeight);
-			if(playerNumberSelectorScreen.getNbPlayer() != 0){
-				nbPlayer = playerNumberSelectorScreen.getNbPlayer();
-				gameState = 3;
-			}
-		} else if(gameState == 2){
-		} else if(gameState == 3){
-			if(KeyEvent.isPauseKeyPressed()){
-				isPaused = true;
-				if(pauseScreen.isPaused()){
-					isPaused = false;
-				}
-			}
-			if(!isPaused){
-				tiledMapRenderer.setView(camera);
-				tiledMapRenderer.render(layerToRender);
-				j1.move();
-				KeyEvent.keyPressed(j1);
-				j1.draw(batch, stateTime);
-			} else {
-				pauseScreen.draw(batch, windowWidth, windowHeight);
-			}
-		} 
-		camera.update();
-		batch.end();
-		if(gameState == 1){
-			playerNumberSelectorScreen.drawScene();
-		}
-		if(isPaused){
-			pauseScreen.drawScene();
-		}
-	}
+    @Override
+    public void create () {
+        batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        font = new BitmapFont();
+        setScreen(new TitleScreen(this));
+    }
 
-	@Override
-	public void dispose() {
-		batch.dispose();
-	}
+    @Override
+    public void dispose () {
+        batch.dispose();
+        shapeRenderer.dispose();
+        font.dispose();
+    }
 
-	private void sleep(double second) throws InterruptedException {
-		Thread.sleep((int) (second * 1000));
-	}
-
-	private void drawCamera() {
+    public void drawCamera() {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, windowWidth, windowHeight);
-		camera.position.x = 1920/2;
-		camera.position.y = 800/2;
+		camera.setToOrtho(false, w, h);
+		camera.position.x = w/2;
+		camera.position.y = h/2;
 		camera.update();
 	}
 }
