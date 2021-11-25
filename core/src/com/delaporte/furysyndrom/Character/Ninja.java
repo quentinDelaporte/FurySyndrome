@@ -26,13 +26,15 @@ public class Ninja extends Character {
             yPosition,
             32,
             32,
-            new Anim(Gdx.files.internal("../Assets/Texture/Mage_IDLE.png"), 5, 1, 0.1f),
+            new Anim(Gdx.files.internal("../../Assets/Texture/Ninja/Idle__000.png"), 1, 1, 0.1f),
             2.5
         );
     }
 
     @Override
-    public void selectAnimation(){}
+    public void selectAnimation(){
+        this.Animation = new Anim(Gdx.files.internal("../../Assets/Texture/Ninja/Idle__000.png"), 1, 1, 0.1f);
+    }
 
 
 }

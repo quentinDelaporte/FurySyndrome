@@ -14,11 +14,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
 
-public class ResumeButton extends CustomButton {
+public class SoundButton extends CustomButton {
   private ImageButton button;
-  private boolean isPaused = true;
+  private boolean isSoundSettingsOpen = false;
 
-  public ResumeButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  public SoundButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
     super(
       text,
       x,
@@ -32,16 +32,16 @@ public class ResumeButton extends CustomButton {
 
   @Override
   public void generer(){
-    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/ResumeButton.png"))));
-    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/ResumeButton.png"))));
+    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/optionsButton.png"))));
+    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/optionsButton.png"))));
     button = new ImageButton(imageup, imagedown);
     button.setSize(width, height);
     button.setPosition(x,y);
     button.addListener(new InputListener() {    
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-        isPaused=false;
-        System.out.println("RESUME");
+        isSoundSettingsOpen=true;
+        System.out.println("SOUND SETTINGS");
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -54,11 +54,11 @@ public class ResumeButton extends CustomButton {
     return button;
   }
 
-  public boolean IsPaused(){
-    return isPaused;
+  public boolean isSoundSettingsOpen(){
+    return isSoundSettingsOpen;
   }
 
   public void reset(){
-    isPaused=true;
+    isSoundSettingsOpen = false;
   }
 }

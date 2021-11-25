@@ -57,7 +57,6 @@ Effet: Téléportation aléatoire
 - Implémentation de l'ia
 - Implémentation des attaques
 - Implémentation des entité movible (Fleche, boule de feu...)
-- Implémentation des collision avec la map
 - Implémentation des collision avec la map (semi bloquant)
 - Implémentation des collision avec les entite
 - Implémentation du GUI
