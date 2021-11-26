@@ -18,14 +18,13 @@ public class SoundButton extends CustomButton {
   private ImageButton button;
   private boolean isSoundSettingsOpen = false;
 
-  public SoundButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  public SoundButton(String text, int x, int y, int width, int height, FurySyndrom game){
     super(
       text,
       x,
       y,
       width,
       height,
-      nbPlayerInput,
       game
     );
   }

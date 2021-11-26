@@ -18,14 +18,13 @@ public class BackButton extends CustomButton {
   private ImageButton button;
   private boolean goBack = false;
 
-  public BackButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  public BackButton(String text, int x, int y, int width, int height, FurySyndrom game){
     super(
       text,
       x,
       y,
       width,
       height,
-      nbPlayerInput,
       game
     );
   }

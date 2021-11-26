@@ -18,14 +18,13 @@ public class ControlsButton extends CustomButton {
   private ImageButton button;
   private boolean isSettingsOpen = false;
 
-  public ControlsButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  public ControlsButton(String text, int x, int y, int width, int height, FurySyndrom game){
     super(
       text,
       x,
       y,
       width,
       height,
-      nbPlayerInput,
       game
     );
   }

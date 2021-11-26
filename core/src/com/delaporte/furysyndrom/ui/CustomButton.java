@@ -23,16 +23,14 @@ public abstract class CustomButton {
   public int y;
   public int width;
   public int height;
-  public int nbPlayerInput;
   FurySyndrom game;
 
-  protected CustomButton(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  protected CustomButton(String text, int x, int y, int width, int height, FurySyndrom game){
     this.text = text;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.nbPlayerInput = nbPlayerInput;
     this.game = game;
     generer();
   }
@@ -43,10 +41,6 @@ public abstract class CustomButton {
     return button;
   }
 
-  public int getNbPlayer(){
-    return nbPlayer;
-  }
-  
   public boolean getNextGameState(){
     return nextGameState;
   }

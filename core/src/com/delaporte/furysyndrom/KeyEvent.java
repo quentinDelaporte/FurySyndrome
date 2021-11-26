@@ -4,15 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.delaporte.furysyndrom.Character.Character;
 import com.delaporte.furysyndrom.utils.ConfigReader;
+
 //On creer notre propre gestionnaire d'event pour les touches car libgdx ne gere pas nativement les associations de touches
 // Sauf Ctrl, alt, shift cf: https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/scenes/scene2d/utils/UIUtils.java
-public class KeyEvent {
-    private Character j1; 
-    private Character j2; 
-    private ConfigReader ConfigReader = new ConfigReader();
-    public KeyEvent(){
-    }
-
     /**
      * Keys par défaut:
      *      J1:
@@ -27,6 +21,12 @@ public class KeyEvent {
      *          Z : UP
      */
 
+public class KeyEvent {
+    private Character j1; 
+    private Character j2; 
+    private ConfigReader ConfigReader = new ConfigReader();
+    public KeyEvent(){
+    }
 
     public void keyPressed(Character j1, Character j2){
         this.j1 = j1;

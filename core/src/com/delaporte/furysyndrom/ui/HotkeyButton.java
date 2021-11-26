@@ -12,14 +12,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
+import com.delaporte.furysyndrom.utils.ConfigReader;
 
-public class ButtonSelectorPlayer extends CustomButton {
+public class HotkeyButton extends CustomButton {
   private Skin skin;
   private TextButton button;
   private boolean nextGameState = false;
-  private int nbPlayer=0;
-  private int nbPlayerBtn;
-  public ButtonSelectorPlayer(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  private String param_name;
+  private String key_value;
+  private boolean isActive = false;
+  private ConfigReader ConfigReader = new ConfigReader();
+
+  public HotkeyButton(String text, int x, int y, int width, int height, FurySyndrom game, String param_name){
     super(
       text,
       x,
@@ -28,24 +32,22 @@ public class ButtonSelectorPlayer extends CustomButton {
       height,
       game
     );
-    nbPlayerBtn = nbPlayerInput;
+    isActive = false;
+    this.param_name = param_name;
+    this.key_value = ConfigReader.getKeyProperties(param_name);
   }
 
   @Override
   public void generer(){
     skin = new Skin(Gdx.files.internal("../../Assets/Skin/freezing-ui.json"));
-    button = new TextButton(text, skin);
-    
+    button = new TextButton("1", skin);
+    //Text: mapper les keysCode aux touches 
     button.setSize(width, height);
     button.setPosition(x,y);
     button.addListener(new InputListener() {    
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-        nextGameState = true;
-        nbPlayer=nbPlayerBtn;
-        if(getNbPlayer() != 0){
-          game.setScreen(new GameScreen(game));
-        }
+        ConfigReader.updateKeyProperties(param_name, key_value);
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -60,9 +62,5 @@ public class ButtonSelectorPlayer extends CustomButton {
 
   public boolean getNextGameState(){
     return nextGameState;
-  }
-
-  public int getNbPlayer(){
-    return nbPlayer;
   }
 }
