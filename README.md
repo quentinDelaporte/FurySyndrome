@@ -6,31 +6,31 @@ Temps de dev: 13 Heures
 
 - Mage
 
-PV : 100
-Force : 20
-Défense :  25
-Agilité : 30
+  - PV : 100
+  - Force : 20
+  - Défense :  25
+  - Agilité : 30
 
 - Archer
 
-PV : 100
-Force : 20
-Défense : 25
-Agilité : 30
+  - PV : 100
+  - Force : 20
+  - Défense : 25
+  - Agilité : 30
 
 - Guerrier
 
-PV : 150
-Force : 10
-Défense : 50
-Agilité : 15
+  - PV : 150
+  - Force : 10
+  - Défense : 50
+  - Agilité : 15
 
 - Ninja
 
-PV : 125
-Force : 20
-Défense :  20
-Agilité : 50
+  - PV : 125
+  - Force : 20
+  - Défense :  20
+  - Agilité : 50
 
 ## II. Les différents objets
 

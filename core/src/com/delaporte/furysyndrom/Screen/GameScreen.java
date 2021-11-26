@@ -126,6 +126,8 @@ public class GameScreen extends ScreenAdapter {
             } else if(isSoundSettingsOpen){
                 gameMusic.setVolume(MusicSlider.getVolume());
                 // gameMusic.setVolume(SoundSlider.getVolume());
+                ConfigReader.updateGeneralProperties("Music_Volume", MusicSlider.getVolume() + "");
+                ConfigReader.updateGeneralProperties("Sound_Volume", SoundSlider.getVolume() + "");
                 if(BackButton.goBack())
                     SoundButton.reset();
                     BackButton.reset();
