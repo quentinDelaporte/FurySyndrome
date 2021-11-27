@@ -28,6 +28,8 @@ public class KeyEvent {
     public KeyEvent(){
     }
 
+ 
+
     public void keyPressed(Character j1, Character j2){
         this.j1 = j1;
         this.j2 = j2;
@@ -177,4 +179,19 @@ public class KeyEvent {
         }
         return false;
     }
+
+        public boolean isKeyPressed(int key){
+            if(Gdx.input.isKeyPressed(key))
+                return true;
+            return false;
+        }
+        
+        public int getKeyCodePressed(){
+            for(int i = 1; i<194; i++)
+                if(Gdx.input.isKeyPressed(i)){
+                    System.out.println(i);
+                    return i;
+                }
+            return 0;
+        }
 }

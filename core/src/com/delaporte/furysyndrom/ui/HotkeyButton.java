@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
@@ -22,6 +23,7 @@ public class HotkeyButton extends CustomButton {
   private String key_value;
   private boolean isActive = false;
   private ConfigReader ConfigReader = new ConfigReader();
+  private boolean isEnabled = true;
 
   public HotkeyButton(String text, int x, int y, int width, int height, FurySyndrom game, String param_name){
     super(
@@ -40,14 +42,14 @@ public class HotkeyButton extends CustomButton {
   @Override
   public void generer(){
     skin = new Skin(Gdx.files.internal("../../Assets/Skin/freezing-ui.json"));
-    button = new TextButton("1", skin);
+    button = new TextButton(key_value, skin);
     //Text: mapper les keysCode aux touches 
     button.setSize(width, height);
     button.setPosition(x,y);
     button.addListener(new InputListener() {    
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-        ConfigReader.updateKeyProperties(param_name, key_value);
+        isActive = true;
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -60,7 +62,24 @@ public class HotkeyButton extends CustomButton {
     return button;
   }
 
-  public boolean getNextGameState(){
-    return nextGameState;
+  public boolean isActive(){
+    return isActive;
+  }
+  
+  public void reset(){
+    this.isActive = false;
+  }
+
+  public void changeEnabled(boolean enabled){
+    this.isEnabled = enabled;
+  }
+
+  public boolean isEnabled(){
+    return isEnabled;
+  }
+
+  public void setText(String text){
+    this.text = text;
+    button.setText(text);
   }
 }
