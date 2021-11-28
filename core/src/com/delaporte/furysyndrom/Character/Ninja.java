@@ -37,4 +37,7 @@ public class Ninja extends Character {
     }
 
 
+    public String getType(){
+        return "ninja";
+    }
 }

@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
 import com.delaporte.furysyndrom.utils.ConfigReader;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 
 public class HotkeyButton extends CustomButton {
   private Skin skin;
@@ -36,7 +38,8 @@ public class HotkeyButton extends CustomButton {
     );
     isActive = false;
     this.param_name = param_name;
-    this.key_value = ConfigReader.getKeyProperties(param_name);
+    this.key_value = Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(param_name)));
+    System.out.println(key_value);
   }
 
   @Override
@@ -78,8 +81,7 @@ public class HotkeyButton extends CustomButton {
     return isEnabled;
   }
 
-  public void setText(String text){
-    this.text = text;
-    button.setText(text);
+  public void setText(String param_name){
+    button.setText(Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(param_name))));
   }
 }

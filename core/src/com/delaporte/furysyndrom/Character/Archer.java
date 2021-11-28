@@ -34,4 +34,8 @@ public class Archer extends Character {
     @Override
     public void selectAnimation(){}
 
+    
+    public String getType(){
+        return "archer";
+    }
 }

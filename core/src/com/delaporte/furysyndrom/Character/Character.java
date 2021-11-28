@@ -364,4 +364,14 @@ public abstract class Character {
     
     protected abstract void selectAnimation();
 
+    public double getHpPercent(){
+        return this.hp/maxHp *100;
+    }
+    public String getType(){
+        return "undefined";
+    }
+
+    public int getHp(){
+        return hp;
+    }
 }

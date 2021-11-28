@@ -21,6 +21,7 @@ import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
 import com.delaporte.furysyndrom.ui.MusicSlider;
 import com.delaporte.furysyndrom.ui.BackButton;
 import com.delaporte.furysyndrom.ui.HotkeyButton;
+import com.delaporte.furysyndrom.ui.CharacterHealImage;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Character.Ninja;
@@ -77,6 +78,11 @@ public class GameScreen extends ScreenAdapter {
     private HotkeyButton HotkeyButton_player2_attack_two_key;
     private BackButton BackButtonHotkey;
 
+    private CharacterHealImage CharacterHealImageJ1;
+    private CharacterHealImage CharacterHealImageJ2;
+    private CharacterHealImage CharacterHealImageJ3;
+    private CharacterHealImage CharacterHealImageJ4;
+
     public enum HotkeyActor{
         JUMPKEY, LEFTKEY, RIGHTKEY, RUNKEY, ATTACKONEKEY, ATTACKTWOKEY, NONE;
     }
@@ -104,6 +110,7 @@ public class GameScreen extends ScreenAdapter {
 		stageSoundSettings = new Stage(new ScreenViewport());
         selectedHotkeyActor = HotkeyActor.NONE;
         selectedHotkeyPlayer = HotkeyPlayer.NONE;
+
     }
 
     @Override
@@ -166,10 +173,16 @@ public class GameScreen extends ScreenAdapter {
         stageSettings.addActor(HotkeyButton_player2_run_key.getButton());
         stageSettings.addActor(HotkeyButton_player2_attack_one_key.getButton());
         stageSettings.addActor(HotkeyButton_player2_attack_two_key.getButton());
+
+        CharacterHealImageJ1 = new CharacterHealImage(getCharacterHealImage(j1,CharacterHealImageJ1),10,10,128,32,this.game);
+        CharacterHealImageJ2 = new CharacterHealImage(getCharacterHealImage(j2,CharacterHealImageJ2),10,52,128,32,this.game);
+        // CharacterHealImageJ3 = new CharacterHealImage(getCharacterHealImage(j3,CharacterHealImageJ3),10,94,128,32,this.game);
+        // CharacterHealImageJ4 = new CharacterHealImage(getCharacterHealImage(j4,CharacterHealImageJ4),10,136,128,32,this.game);
     }
 
     @Override
     public void render(float delta) {
+		Gdx.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
         if(isPaused){
             if(ControlsButton.isSettingsOpen())
                 isSettingsOpen = true;
@@ -243,6 +256,10 @@ public class GameScreen extends ScreenAdapter {
             j1.move();
             j2.move();
             KeyEvent.keyPressed(j1,j2);
+            CharacterHealImageJ1.setImage(getCharacterHealImage(j1,CharacterHealImageJ1));
+            CharacterHealImageJ1.draw(game.batch,stateTime);
+            CharacterHealImageJ2.setImage(getCharacterHealImage(j2,CharacterHealImageJ2));
+            CharacterHealImageJ2.draw(game.batch,stateTime);
         } else {
             if(!isSoundSettingsOpen && !isSettingsOpen){
                 Gdx.input.setInputProcessor(stagePause);
@@ -335,5 +352,51 @@ public class GameScreen extends ScreenAdapter {
             return true;
         } 
         return false;
+    }
+
+    public String getCharacterHealImage(Character j,CharacterHealImage CharacterHealImage){
+        if(j.getHpPercent() == 100){
+            return j.getType() + "_heal_100.png";
+        } else if(j.getHpPercent() > 95){
+            return j.getType() + "_heal_95.png";
+        } else if(j.getHpPercent() > 90){
+            return j.getType() + "_heal_90.png";
+        } else if(j.getHpPercent() > 85){
+            return j.getType() + "_heal_85.png";
+        } else if(j.getHpPercent() > 80){
+            return j.getType() + "_heal_80.png";
+        } else if(j.getHpPercent() > 75){
+            return j.getType() + "_heal_75.png";
+        } else if(j.getHpPercent() > 70){
+            return j.getType() + "_heal_70.png";
+        } else if(j.getHpPercent() > 65){
+            return j.getType() + "_heal_65.png";
+        } else if(j.getHpPercent() > 60){
+            return j.getType() + "_heal_60.png";
+        } else if(j.getHpPercent() > 55){
+            return j.getType() + "_heal_55.png";
+        } else if(j.getHpPercent() > 50){
+            return j.getType() + "_heal_50.png";
+        } else if(j.getHpPercent() > 45){
+            return j.getType() + "_heal_45.png";
+        } else if(j.getHpPercent() > 40){
+            return j.getType() + "_heal_40.png";
+        } else if(j.getHpPercent() > 35){
+            return j.getType() + "_heal_35.png";
+        } else if(j.getHpPercent() > 30){
+            return j.getType() + "_heal_30.png";
+        } else if(j.getHpPercent() > 25){
+            return j.getType() + "_heal_25.png";
+        } else if(j.getHpPercent() > 20){
+            return j.getType() + "_heal_20.png";
+        } else if(j.getHpPercent() > 15){
+            return j.getType() + "_heal_15.png";
+        } else if(j.getHpPercent() > 10){
+            return j.getType() + "_heal_10.png";
+        } else if(j.getHpPercent() > 5){
+            return j.getType() + "_heal_5.png";
+        } else {
+            return j.getType() + "_heal_0.png";
+        }
     }
 }

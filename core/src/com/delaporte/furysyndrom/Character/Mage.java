@@ -37,5 +37,8 @@ public class Mage extends Character {
         }
     }
 
+    public String getType(){
+        return "mage";
+    }
 
 }

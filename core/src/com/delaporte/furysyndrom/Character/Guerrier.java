@@ -33,4 +33,8 @@ public class Guerrier extends Character {
 
     @Override
     public void selectAnimation(){}
+    
+    public String getType(){
+        return "guerrier";
+    }
 }

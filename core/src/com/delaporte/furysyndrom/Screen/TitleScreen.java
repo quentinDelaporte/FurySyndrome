@@ -39,7 +39,7 @@ public class TitleScreen extends ScreenAdapter {
 		Gdx.graphics.setWindowedMode(game.w, game.h);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.graphics.setTitle("FurySyndrom | FPS:" + Gdx.graphics.getFramesPerSecond());
+		Gdx.graphics.setTitle("FurySyndrom");
         game.batch.begin();
         game.batch.draw(new Texture(Gdx.files.internal("../../Assets/MainImage.png")), 0, 0, 640, 480);
         game.camera.update();
