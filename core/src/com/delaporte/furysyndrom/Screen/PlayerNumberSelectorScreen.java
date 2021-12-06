@@ -24,8 +24,8 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
     public PlayerNumberSelectorScreen(FurySyndrom game) {
         this.game = game;
         stage = new Stage(new ScreenViewport());
-		ButtonSelector2Player = new ButtonSelectorPlayer("2",(int)((game.w-250)/3)*1,(int)((game.h-250)/3)*1,250,250,4, this.game);
-		ButtonSelector4Player = new ButtonSelectorPlayer("4",(int)((game.w-250)/3)*2,(int)((game.h-250)/3)*1,250,250,4, this.game);
+		ButtonSelector2Player = new ButtonSelectorPlayer("2",(int)((game.w-250)/3)*1,(int)((game.h-100)/3)*1,250,100,4, this.game);
+		ButtonSelector4Player = new ButtonSelectorPlayer("4",(int)((game.w-250)/3)*2,(int)((game.h-100)/3)*1,250,100,4, this.game);
 		stage.addActor(ButtonSelector4Player.getButton());
 		stage.addActor(ButtonSelector2Player.getButton());
     }
@@ -42,7 +42,7 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         
-        game.batch.draw(new Texture(Gdx.files.internal("../../Assets/HowManyPlayer.png")), 0, 0, 640, 480);
+        game.batch.draw(new Texture(Gdx.files.internal("../../Assets/MainImage.png")), 0, 0, 640, 480);
         game.batch.end();	
         stage.act();
         stage.draw();

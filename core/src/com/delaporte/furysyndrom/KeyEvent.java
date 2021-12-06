@@ -194,4 +194,7 @@ public class KeyEvent {
                 }
             return 0;
         }
+    public void reloadConfig(){
+        this.ConfigReader = new ConfigReader();
+    }
 }

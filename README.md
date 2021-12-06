@@ -54,12 +54,10 @@ Effet: Téléportation aléatoire
 
 - Ajout des controlleurs xbox, ect
 - Implémentation des boost (objet)
-- Implémentation de l'ia
+- Implémentation de l'ia (Si 1vmob)
 - Implémentation des attaques
 - Implémentation des entité movible (Fleche, boule de feu...)
-- Implémentation des collision avec la map (semi bloquant)
-- Implémentation des collision avec les entite
-- Implémentation du GUI
-- Implémentation de la musique du GUI
+- Implémentation des collision avec les entite 
 - Implémentation d'effet sonore (attaque, mort...)
-- Implémentation de plusieurs maps
+- Implémentation de plusieurs maps 
+- Quand on change une config de hotkey: recharger fichier de conf.

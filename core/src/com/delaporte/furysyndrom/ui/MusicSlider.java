@@ -13,7 +13,7 @@ public class MusicSlider {
     private Skin skin;
 
     public MusicSlider(int x, int y, int width, int height, float vol) {
-        skin = new Skin(Gdx.files.internal("../../Assets/Skin/freezing-ui.json"));
+        skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
 
         slider = new Slider(0, 1, 0.1f, false, skin);
         slider.setSize(width, height);
