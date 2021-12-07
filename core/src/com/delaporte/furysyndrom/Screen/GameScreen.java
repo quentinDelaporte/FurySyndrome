@@ -246,7 +246,7 @@ public class GameScreen extends ScreenAdapter {
         stageSettings.addActor(HotkeyButton_player2_attack_two_key.getButton());
 
         CharacterHealImageJ1 = new CharacterHealImage("mage_heal_0.png",10,10,128,32,this.game);
-        CharacterHealImageJ2 = new CharacterHealImage("mage_heal_0.png",10,52,128,32,this.game);
+        CharacterHealImageJ2 = new CharacterHealImage("troll_heal_0.png",10,52,128,32,this.game);
         // CharacterHealImageJ3 = new CharacterHealImage(getCharacterHealImage(j3,CharacterHealImageJ3),10,94,128,32,this.game);
         // CharacterHealImageJ4 = new CharacterHealImage(getCharacterHealImage(j4,CharacterHealImageJ4),10,136,128,32,this.game);
     }

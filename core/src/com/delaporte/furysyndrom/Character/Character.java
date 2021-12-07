@@ -11,9 +11,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 public abstract class Character {
     public int hp;
     public final int maxHp;
@@ -36,10 +36,9 @@ public abstract class Character {
     public float initialY;
     public Map m;
     public int collisionLayer;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
     public boolean isAttacking = false;
     public ArrayList<Character> characters = new ArrayList<Character>();
-
+    private int hitboxHeight, hitboxWidth;
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
     }
@@ -88,6 +87,8 @@ public abstract class Character {
         this.facing = CharacterFacing.LEFT;
         this.Animation = Animation;
         this.jumpHeight = jumpHeight;
+        this.hitboxWidth = hitboxWidth;
+        this.hitboxHeight = hitboxHeight;
     }
 
     protected abstract void selectAnimation();
@@ -134,10 +135,12 @@ public abstract class Character {
 
 
     public void draw(SpriteBatch batch, float stateTime) {
+        drawHitbox(batch, getAttackHitbox(), Color.RED);
+        drawHitbox(batch, hitbox, Color.GREEN);
         selectAnimation();
         batch.draw(Animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
+        // hitbox = new Rectangle((int)(xPosition+(0.5*(hitboxWidth-width))), (int) (yPosition+(0.5*(hitboxHeight-height))), (int) hitboxWidth, (int) hitboxHeight);
         hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
-        // renderHitbox(hitbox);
     }
 
 	public boolean isJumping(){
@@ -373,12 +376,6 @@ public abstract class Character {
         this.etat = CharacterEtat.STATIC;
     }
 
-    public void renderHitbox(Rectangle h){
-        shapeRenderer.begin(ShapeType.Filled) ;
-        shapeRenderer.rect(h.x, h.y, h.width, h.height) ;
-        shapeRenderer.end();
-    }
-
     public int getHp(){
         return hp;
     }
@@ -396,7 +393,21 @@ public abstract class Character {
     }
 
     public Rectangle getAttackHitbox(){
-        return new Rectangle((int)(xPosition - (width/2)), (int)(yPosition + (height/2)), (int)(2*width), (int)(0.5*height));
+        if(facing == CharacterFacing.LEFT){
+            return new Rectangle(
+                (int)(xPosition - (width/2)), 
+                (int)(yPosition + (height/2)), 
+                (int)(width), 
+                (int)(0.5*height)
+            );
+        } else {
+            return new Rectangle(
+                (int)(xPosition + (width/2)), 
+                (int)(yPosition + (height/2)), 
+                (int)(width), 
+                (int)(0.5*height)
+            );
+        }
     }
 
     public void isAttacking(){
@@ -421,5 +432,15 @@ public abstract class Character {
 
     public void getDamaged(int damageHp){
         this.hp -= (int)((1.0 - ((float) this.defence/100.0)) * (float)damageHp);
+    }
+
+    public void drawHitbox(SpriteBatch batch, Rectangle hitbox, Color color){
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap.setColor(color);
+        pixmap.fillRectangle(0, 0, width, height);
+        Texture texture = new Texture(pixmap);
+        pixmap.dispose();
+        batch.setColor(color.r, color.g, color.b, color.a);
+        batch.draw(texture, hitbox.x, hitbox.y, hitbox.width, hitbox.height);
     }
 }
