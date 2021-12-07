@@ -1,8 +1,11 @@
 package com.delaporte.furysyndrom.Character;
 
+import com.delaporte.furysyndrom.Character.Character;
+import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Troll extends Character {
     public Troll(
@@ -14,17 +17,19 @@ public class Troll extends Character {
         super(
             m,
             collisionLayer,
-            120,
-            30, 
-            25,
+            1600,
+            20, 
+            35,
             10,
             "Troll",
             xPosition,
             yPosition,
-            32,
-            32,
+            64,
+            64,
             new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f),
-            1.5
+            1.5,
+            32,
+            32
         );
     }
 
@@ -66,5 +71,6 @@ public class Troll extends Character {
     public String getType(){
         return "Troll";
     }
+
 
 }

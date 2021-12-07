@@ -1,8 +1,11 @@
 package com.delaporte.furysyndrom.Character;
 
+import com.delaporte.furysyndrom.Character.Character;
+import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Mage extends Character {
     public Mage(
@@ -14,7 +17,7 @@ public class Mage extends Character {
         super(
             m,
             collisionLayer,
-            100,
+            1000,
             20, 
             25,
             30,
@@ -24,7 +27,9 @@ public class Mage extends Character {
             32,
             32,
             new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_IDLE.png"), 5, 1, 0.1f),
-            1.5
+            1.5,
+            32,
+            32
         );
     }
 
@@ -66,5 +71,8 @@ public class Mage extends Character {
     public String getType(){
         return "mage";
     }
+
+
+
 
 }

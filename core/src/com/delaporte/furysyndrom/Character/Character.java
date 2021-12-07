@@ -1,5 +1,6 @@
 package com.delaporte.furysyndrom.Character;
 
+import java.util.ArrayList;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,10 +18,10 @@ public abstract class Character {
     public int hp;
     public final int maxHp;
     public final int strength;
-    public final int defense;
+    public final int defence;
     public final int agility;
     public int additionalStrength;
-    public int additionalDefense;
+    public int additionaldefence;
     public int additionalAgility;
     public String nom;
     public float yPosition;
@@ -35,8 +36,9 @@ public abstract class Character {
     public float initialY;
     public Map m;
     public int collisionLayer;
-    private 
-    ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    public boolean isAttacking = false;
+    public ArrayList<Character> characters = new ArrayList<Character>();
 
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
@@ -46,12 +48,15 @@ public abstract class Character {
         LEFT, RIGHT
     }
     
+    /**
+     * On passe les info de la hitbox car les sprites ne font pas forcement la bonne taille. (certains avec bcp d'espace vide)
+     */
     protected Character(
         Map m, 
         int collisionLayer,
         int hp,
         int strength, 
-        int defense, 
+        int defence, 
         int agility, 
         String nom, 
         float xPosition, 
@@ -59,28 +64,36 @@ public abstract class Character {
         int width, 
         int height, 
         Anim Animation, 
-        double jumpHeight
+        double jumpHeight,
+        int hitboxWidth,
+        int hitboxHeight
     ){
         this.m = m;
         this.collisionLayer = collisionLayer;
         this.hp = hp;
         this.maxHp = hp;
-        this.defense = defense;
+        this.defence = defence;
         this.strength = strength;
         this.agility = agility;
         this.additionalStrength = 0;
-        this.additionalDefense = 0;
+        this.additionaldefence = 0;
         this.additionalAgility = 0;
         this.nom = nom;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
+        this.hitbox = new Rectangle((int)(xPosition+(0.5*(hitboxWidth-width))), (int) (yPosition+(0.5*(hitboxHeight-height))), (int) hitboxWidth, (int) hitboxHeight);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
         this.Animation = Animation;
         this.jumpHeight = jumpHeight;
+    }
+
+    protected abstract void selectAnimation();
+
+    public String getType(){
+        return "undefined";
     }
 
     public boolean isDead() {
@@ -149,6 +162,10 @@ public abstract class Character {
     }
 
     public void move() {
+        if(isAttacking){
+            attaquer(characters);
+            isAttacking = false;
+        }
         double movespeed = 0;
         if(this.etat == CharacterEtat.WALK || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.FALLWALK ){
             movespeed = 1 + (this.agility/100);
@@ -294,12 +311,12 @@ public abstract class Character {
         return this.additionalStrength;
     }
     
-    public void setAdditionalDefense(int additionalDefense){
-        this.additionalDefense = additionalDefense;
+    public void setAdditionaldefence(int additionaldefence){
+        this.additionaldefence = additionaldefence;
     }
 
-    public int getAdditionalDefense(){
-        return this.additionalDefense;
+    public int getAdditionaldefence(){
+        return this.additionaldefence;
     }
     
     public void setAdditionalAgility(int additionalAgility){
@@ -361,17 +378,48 @@ public abstract class Character {
         shapeRenderer.rect(h.x, h.y, h.width, h.height) ;
         shapeRenderer.end();
     }
-    
-    protected abstract void selectAnimation();
+
+    public int getHp(){
+        return hp;
+    }
 
     public double getHpPercent(){
         return this.hp/maxHp *100;
     }
-    public String getType(){
-        return "undefined";
+
+    public Rectangle getHitbox(){
+        return hitbox;
     }
 
-    public int getHp(){
-        return hp;
+    public int getMaxHp(){
+        return maxHp;
+    }
+
+    public Rectangle getAttackHitbox(){
+        return new Rectangle((int)(xPosition - (width/2)), (int)(yPosition + (height/2)), (int)(2*width), (int)(0.5*height));
+    }
+
+    public void isAttacking(){
+        isAttacking = true;
+    }
+
+    public void setCharacters(ArrayList<Character> c){
+        characters = c;
+    }
+
+    public void attaquer(ArrayList<Character> characters){
+        Rectangle attackHitbox = getAttackHitbox();
+        
+        for(Character c : characters){
+            if(c != this){
+                if(attackHitbox.overlaps(c.getHitbox())){
+                    c.getDamaged(this.strength);
+                }
+            }
+        }
+    }
+
+    public void getDamaged(int damageHp){
+        this.hp -= (int)((1.0 - ((float) this.defence/100.0)) * (float)damageHp);
     }
 }

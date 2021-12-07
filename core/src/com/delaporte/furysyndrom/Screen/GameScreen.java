@@ -1,5 +1,7 @@
 package com.delaporte.furysyndrom.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -29,10 +31,7 @@ import com.delaporte.furysyndrom.ui.HotkeyButton;
 import com.delaporte.furysyndrom.ui.CharacterHealImage;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Character.Mage;
-import com.delaporte.furysyndrom.Character.Ninja;
-import com.delaporte.furysyndrom.Character.Archer;
 import com.delaporte.furysyndrom.Character.Troll;
-import com.delaporte.furysyndrom.Character.Guerrier;
 import com.delaporte.furysyndrom.Character.Character;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.KeyEvent;
@@ -98,15 +97,15 @@ public class GameScreen extends ScreenAdapter {
     private Label VolumeConfigTitleLabel;
     private Label labelVolumeMusic;
     private Label labelVolumeSoundEffect;
-    private CharacterHealImage CharacterHealImageJ1;
-    private CharacterHealImage CharacterHealImageJ2;
-    private CharacterHealImage CharacterHealImageJ3;
-    private CharacterHealImage CharacterHealImageJ4;
     private Skin skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
     public HotkeyActor selectedHotkeyActor;
     public HotkeyPlayer selectedHotkeyPlayer;
     private ConfigReader ConfigReader = new ConfigReader();
-
+    private ArrayList<Character> characters = new ArrayList<Character>();
+    private CharacterHealImage CharacterHealImageJ1;
+    private CharacterHealImage CharacterHealImageJ2;
+    private CharacterHealImage CharacterHealImageJ3;
+    private CharacterHealImage CharacterHealImageJ4;
     private int col_number = 12;
     private int row_number = 12;
     private int col_width = 0;
@@ -127,7 +126,9 @@ public class GameScreen extends ScreenAdapter {
 		tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,1600,700);
-		j2 = new Troll(map01,7,200,700);
+		j2 = new Troll(map01,7,1500,700);
+        characters.add(j1);
+        characters.add(j2);
         //Menu pause
 		stagePause = new Stage(new ScreenViewport());
 		stageSettings = new Stage(new ScreenViewport());
@@ -244,8 +245,8 @@ public class GameScreen extends ScreenAdapter {
         stageSettings.addActor(HotkeyButton_player2_attack_one_key.getButton());
         stageSettings.addActor(HotkeyButton_player2_attack_two_key.getButton());
 
-        CharacterHealImageJ1 = new CharacterHealImage(getCharacterHealImage(j1,CharacterHealImageJ1),10,10,128,32,this.game);
-        CharacterHealImageJ2 = new CharacterHealImage(getCharacterHealImage(j2,CharacterHealImageJ2),10,52,128,32,this.game);
+        CharacterHealImageJ1 = new CharacterHealImage("mage_heal_0.png",10,10,128,32,this.game);
+        CharacterHealImageJ2 = new CharacterHealImage("mage_heal_0.png",10,52,128,32,this.game);
         // CharacterHealImageJ3 = new CharacterHealImage(getCharacterHealImage(j3,CharacterHealImageJ3),10,94,128,32,this.game);
         // CharacterHealImageJ4 = new CharacterHealImage(getCharacterHealImage(j4,CharacterHealImageJ4),10,136,128,32,this.game);
     }
@@ -359,12 +360,14 @@ public class GameScreen extends ScreenAdapter {
                     }
                 }
             );
+            j1.setCharacters(characters);
+            j2.setCharacters(characters);
             j1.move();
             j2.move();
             KeyEvent.keyPressed(j1,j2);
-            CharacterHealImageJ1.setImage(getCharacterHealImage(j1,CharacterHealImageJ1));
+            CharacterHealImageJ1.setHealBarPercent(j1.getHp(), j1.getMaxHp());
+            CharacterHealImageJ2.setHealBarPercent(j2.getHp(), j2.getMaxHp());
             CharacterHealImageJ1.draw(game.batch,stateTime);
-            CharacterHealImageJ2.setImage(getCharacterHealImage(j2,CharacterHealImageJ2));
             CharacterHealImageJ2.draw(game.batch,stateTime);
             j1.draw(game.batch, stateTime);
             j2.draw(game.batch, stateTime);
@@ -463,52 +466,6 @@ public class GameScreen extends ScreenAdapter {
         return false;
     }
 
-    public String getCharacterHealImage(Character j,CharacterHealImage CharacterHealImage){
-        if(j.getHpPercent() == 100){
-            return j.getType() + "_heal_100.png";
-        } else if(j.getHpPercent() > 95){
-            return j.getType() + "_heal_95.png";
-        } else if(j.getHpPercent() > 90){
-            return j.getType() + "_heal_90.png";
-        } else if(j.getHpPercent() > 85){
-            return j.getType() + "_heal_85.png";
-        } else if(j.getHpPercent() > 80){
-            return j.getType() + "_heal_80.png";
-        } else if(j.getHpPercent() > 75){
-            return j.getType() + "_heal_75.png";
-        } else if(j.getHpPercent() > 70){
-            return j.getType() + "_heal_70.png";
-        } else if(j.getHpPercent() > 65){
-            return j.getType() + "_heal_65.png";
-        } else if(j.getHpPercent() > 60){
-            return j.getType() + "_heal_60.png";
-        } else if(j.getHpPercent() > 55){
-            return j.getType() + "_heal_55.png";
-        } else if(j.getHpPercent() > 50){
-            return j.getType() + "_heal_50.png";
-        } else if(j.getHpPercent() > 45){
-            return j.getType() + "_heal_45.png";
-        } else if(j.getHpPercent() > 40){
-            return j.getType() + "_heal_40.png";
-        } else if(j.getHpPercent() > 35){
-            return j.getType() + "_heal_35.png";
-        } else if(j.getHpPercent() > 30){
-            return j.getType() + "_heal_30.png";
-        } else if(j.getHpPercent() > 25){
-            return j.getType() + "_heal_25.png";
-        } else if(j.getHpPercent() > 20){
-            return j.getType() + "_heal_20.png";
-        } else if(j.getHpPercent() > 15){
-            return j.getType() + "_heal_15.png";
-        } else if(j.getHpPercent() > 10){
-            return j.getType() + "_heal_10.png";
-        } else if(j.getHpPercent() > 5){
-            return j.getType() + "_heal_5.png";
-        } else {
-            return j.getType() + "_heal_0.png";
-        }
-    }
-
     public Label createLabel(String text, int x, int y,  int width, int height, LabelStyle labelStyle){
         Label label = new Label(text, labelStyle);
         label.setSize(width, height);
@@ -516,4 +473,5 @@ public class GameScreen extends ScreenAdapter {
         label.setWrap(true);
         return label;
     }
+
 }

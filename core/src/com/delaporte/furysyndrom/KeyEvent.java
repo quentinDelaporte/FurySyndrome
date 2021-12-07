@@ -53,6 +53,9 @@ public class KeyEvent {
             j1.setCharacterEtatFALLWALK();
         if(!isFalling(j1) && !isRunning(1) && !isJumping(j1,1) && !isWalking(1))
             j1.setCharacterEtatSTATIC();
+        if(isAttacking(1)){
+            j1.isAttacking();
+        }
             
         if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_left_key")))) j2.setFacingToLeft();
         else if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_right_key")))) j2.setFacingToRight();
@@ -74,6 +77,9 @@ public class KeyEvent {
             j2.setCharacterEtatFALLWALK();
         if(!isFalling(j2) && !isRunning(2) && !isJumping(j2,2) && !isWalking(2))
             j2.setCharacterEtatSTATIC();
+        if(isAttacking(2)){
+            j2.isAttacking();
+        }
     }
 
     public boolean isPauseKeyPressed(){
@@ -180,6 +186,21 @@ public class KeyEvent {
         return false;
     }
 
+    public boolean isAttacking(int playerNumber){
+        if(playerNumber == 1){
+            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_attack_one_key"))) ||
+                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_attack_two_key")))
+            )
+                return true;
+        } else if(playerNumber == 2){
+            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_attack_one_key"))) ||
+                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_attack_two_key")))
+            )
+                return true;
+        }
+        return false;
+    }
+
         public boolean isKeyPressed(int key){
             if(Gdx.input.isKeyPressed(key))
                 return true;
@@ -189,7 +210,7 @@ public class KeyEvent {
         public int getKeyCodePressed(){
             for(int i = 1; i<194; i++)
                 if(Gdx.input.isKeyPressed(i)){
-                    System.out.println(i);
+                    // System.out.println(i);
                     return i;
                 }
             return 0;
