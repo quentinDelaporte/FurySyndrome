@@ -16,10 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 public abstract class Character {
     public int hp;
-    public final int maxHp;
-    public final int strength;
-    public final int defence;
-    public final int agility;
+    public final int maxHp, strength, defence, agility;
     public int additionalStrength;
     public int additionaldefence;
     public int additionalAgility;
@@ -38,7 +35,7 @@ public abstract class Character {
     public int collisionLayer;
     public boolean isAttacking = false;
     public ArrayList<Character> characters = new ArrayList<Character>();
-    private int hitboxHeight, hitboxWidth;
+    private int hitboxHeight, hitboxWidth, hitboxOffsetX, hitboxOffsetY;
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
     }
@@ -65,7 +62,9 @@ public abstract class Character {
         Anim Animation, 
         double jumpHeight,
         int hitboxWidth,
-        int hitboxHeight
+        int hitboxHeight, 
+        int hitboxOffsetX, 
+        int hitboxOffsetY
     ){
         this.m = m;
         this.collisionLayer = collisionLayer;
@@ -82,13 +81,15 @@ public abstract class Character {
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.hitbox = new Rectangle((int)(xPosition+(0.5*(hitboxWidth-width))), (int) (yPosition+(0.5*(hitboxHeight-height))), (int) hitboxWidth, (int) hitboxHeight);
+        this.hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
         this.Animation = Animation;
         this.jumpHeight = jumpHeight;
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
+        this.hitboxOffsetX = hitboxOffsetX;
+        this.hitboxOffsetY = hitboxOffsetY;
     }
 
     protected abstract void selectAnimation();
@@ -139,8 +140,8 @@ public abstract class Character {
         drawHitbox(batch, hitbox, Color.GREEN);
         selectAnimation();
         batch.draw(Animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
-        // hitbox = new Rectangle((int)(xPosition+(0.5*(hitboxWidth-width))), (int) (yPosition+(0.5*(hitboxHeight-height))), (int) hitboxWidth, (int) hitboxHeight);
-        hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
+        hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
+        // hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
     }
 
 	public boolean isJumping(){
@@ -393,21 +394,13 @@ public abstract class Character {
     }
 
     public Rectangle getAttackHitbox(){
-        if(facing == CharacterFacing.LEFT){
+     
             return new Rectangle(
-                (int)(xPosition - (width/2)), 
-                (int)(yPosition + (height/2)), 
-                (int)(width), 
-                (int)(0.5*height)
+                (int)(xPosition + (facing == CharacterFacing.LEFT ? -(hitboxWidth/2 - hitboxOffsetX) : (hitboxWidth/2 + hitboxOffsetX))) , 
+                (int)(yPosition + (hitboxHeight/2 + hitboxOffsetY)), 
+                (int)(hitboxWidth), 
+                (int)(0.5*hitboxHeight)
             );
-        } else {
-            return new Rectangle(
-                (int)(xPosition + (width/2)), 
-                (int)(yPosition + (height/2)), 
-                (int)(width), 
-                (int)(0.5*height)
-            );
-        }
     }
 
     public void isAttacking(){

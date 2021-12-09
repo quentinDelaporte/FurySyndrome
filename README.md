@@ -61,5 +61,4 @@ Effet: Téléportation aléatoire
 - Implémentation d'effet sonore (attaque, mort...)
 - Implémentation de plusieurs maps
 - Quand on change une config de hotkey: recharger fichier de conf
-- integrer def dans calcul de degats
 - Refactoring

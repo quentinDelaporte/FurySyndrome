@@ -29,7 +29,9 @@ public class Mage extends Character {
             new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_IDLE.png"), 5, 1, 0.1f),
             1.5,
             32,
-            32
+            32, 
+            0,
+            0
         );
     }
 

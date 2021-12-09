@@ -29,7 +29,9 @@ public class Troll extends Character {
             new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f),
             1.5,
             32,
-            32
+            32,
+            16,
+            8
         );
     }
 
