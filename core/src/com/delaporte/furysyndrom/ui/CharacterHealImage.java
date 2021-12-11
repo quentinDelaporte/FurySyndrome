@@ -58,12 +58,6 @@ public class CharacterHealImage extends Actor {
   }
 
   public void setHealBarPercent(int hp, int maxHp){
-    System.out.println("-----hpPercent bar-----");
-    System.out.println(maxHp);
-    System.out.println(hp);
-    System.out.println(hp/maxHp);
-    System.out.println(hp/maxHp*99);
-    System.out.println("-----------------------");
     healBarWidth = (int)(((float)hp)/((float)maxHp) * 99)<0 ? 0 : (int)(((float)hp)/((float)maxHp) * 99);
   }
 }

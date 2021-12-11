@@ -1,5 +1,6 @@
 package com.delaporte.furysyndrom.Character;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
@@ -14,6 +15,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
+
 public abstract class Character {
     public int hp;
     public final int maxHp, strength, defence, agility;
@@ -39,6 +43,8 @@ public abstract class Character {
     public enum CharacterEtat {
         STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
     }
+    public boolean canAttack = true;
+ 
 
     public enum CharacterFacing {
         LEFT, RIGHT
@@ -136,12 +142,11 @@ public abstract class Character {
 
 
     public void draw(SpriteBatch batch, float stateTime) {
-        drawHitbox(batch, getAttackHitbox(), Color.RED);
-        drawHitbox(batch, hitbox, Color.GREEN);
+        // drawHitbox(batch, getAttackHitbox(), Color.RED);
+        // drawHitbox(batch, hitbox, Color.GREEN);
         selectAnimation();
         batch.draw(Animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
         hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
-        // hitbox = new Rectangle((int) xPosition, (int) yPosition, (int) this.width, (int) this.height);
     }
 
 	public boolean isJumping(){
@@ -413,14 +418,25 @@ public abstract class Character {
 
     public void attaquer(ArrayList<Character> characters){
         Rectangle attackHitbox = getAttackHitbox();
-        
-        for(Character c : characters){
-            if(c != this){
-                if(attackHitbox.overlaps(c.getHitbox())){
-                    c.getDamaged(this.strength);
+        if(canAttack){
+            for(Character c : characters){
+                if(c != this){
+                    if(attackHitbox.overlaps(c.getHitbox())){
+                        c.getDamaged(this.strength);
+                    }
                 }
             }
+            canAttack = false;
+            Timer.schedule(new Task() {
+                @Override
+                public void run() {
+                    canAttack = true;
+                }
+            },0.45f);
         }
+
+        System.out.println(canAttack);
+    
     }
 
     public void getDamaged(int damageHp){
