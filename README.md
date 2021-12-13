@@ -59,3 +59,11 @@ Effet: Téléportation aléatoire
 - Implémentation de plusieurs maps
 - Quand on change une config de hotkey: recharger fichier de conf
 - Refactoring
+
+URGENT
+
+- Anim inverse du troll
+- Test unitaire
+- Commentaires
+- Refactoring
+- Quand on change une config de hotkey: recharger fichier de conf

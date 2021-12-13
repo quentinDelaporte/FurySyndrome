@@ -39,6 +39,8 @@ import com.delaporte.furysyndrom.KeyEvent;
 import com.delaporte.furysyndrom.Parameter;
 import com.delaporte.furysyndrom.Map;
 import com.delaporte.furysyndrom.utils.ConfigReader;
+import com.delaporte.furysyndrom.utils.HotkeyActor;
+import com.delaporte.furysyndrom.utils.HotkeyPlayer;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -107,14 +109,6 @@ public class GameScreen extends ScreenAdapter {
     private int row_number = 12;
     private int col_width = 0;
     private int row_height = 0;
-
-    public enum HotkeyActor{
-        JUMPKEY, LEFTKEY, RIGHTKEY, RUNKEY, ATTACKONEKEY, ATTACKTWOKEY, NONE;
-    }
-
-    public enum HotkeyPlayer{
-        PLAYER1, PLAYER2, PLAYER3, PLAYER4, NONE;
-    }
     
     public GameScreen(FurySyndrom game) {
         this.game = game;
