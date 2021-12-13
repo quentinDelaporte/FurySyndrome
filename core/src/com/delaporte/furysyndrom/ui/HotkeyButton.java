@@ -28,7 +28,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.delaporte.furysyndrom.FurySyndrom;
-
+import com.delaporte.furysyndrom.Sound.AmbiantSound;
 
 public class HotkeyButton {
   private Skin skin;
@@ -43,6 +43,7 @@ public class HotkeyButton {
   public int y;
   public int width;
   public int height;
+  public AmbiantSound sound= new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../../Assets/Sound/FX/UI/menuNavigation.wav");
   FurySyndrom game;
 
   public HotkeyButton(int x, int y, int width, int height, FurySyndrom game, String param_name){
@@ -68,6 +69,7 @@ public class HotkeyButton {
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isActive = true;
+        sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -100,5 +102,8 @@ public class HotkeyButton {
     button.setText(Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(this.param_name))));
   }
 
+  public void updateVolume() {
+    sound.setVolume(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")));
+  }
   
 }

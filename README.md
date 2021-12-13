@@ -52,12 +52,9 @@ Effet: Téléportation aléatoire
 
 ## II. TODO
 
-- Ajout des controlleurs xbox, ect
+- Ajout des controlleurs xbox, ect ??
 - Implémentation des boost (objet)
-- Implémentation de l'ia (Si 1vmob)
-- Implémentation des attaques
 - Implémentation des entité movible (Fleche, boule de feu...)
-- Implémentation des collision avec les entite
 - Implémentation d'effet sonore (attaque, mort...)
 - Implémentation de plusieurs maps
 - Quand on change une config de hotkey: recharger fichier de conf

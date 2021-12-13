@@ -26,9 +26,10 @@ import com.delaporte.furysyndrom.ui.ControlsButton;
 import com.delaporte.furysyndrom.ui.SoundButton;
 import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
 import com.delaporte.furysyndrom.ui.MusicSlider;
+import com.delaporte.furysyndrom.ui.SoundSlider;
 import com.delaporte.furysyndrom.ui.BackButton;
 import com.delaporte.furysyndrom.ui.HotkeyButton;
-import com.delaporte.furysyndrom.ui.CharacterHealImage;
+import com.delaporte.furysyndrom.Screen.EndGameScreen;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Character.Mage;
 import com.delaporte.furysyndrom.Character.Troll;
@@ -66,20 +67,20 @@ public class GameScreen extends ScreenAdapter {
     private ControlsButton ControlsButton;
     private SoundButton SoundButton;
     private MusicSlider MusicSlider;
-    private MusicSlider SoundSlider;
+    private SoundSlider SoundSlider;
     private BackButton BackButton;
-    private HotkeyButton HotkeyButton_player1_jump_key;
-    private HotkeyButton HotkeyButton_player1_left_key;
-    private HotkeyButton HotkeyButton_player1_right_key;
-    private HotkeyButton HotkeyButton_player1_run_key;
-    private HotkeyButton HotkeyButton_player1_attack_one_key;
-    private HotkeyButton HotkeyButton_player1_attack_two_key;
-    private HotkeyButton HotkeyButton_player2_jump_key;
-    private HotkeyButton HotkeyButton_player2_left_key;
-    private HotkeyButton HotkeyButton_player2_right_key;
-    private HotkeyButton HotkeyButton_player2_run_key;
-    private HotkeyButton HotkeyButton_player2_attack_one_key;
-    private HotkeyButton HotkeyButton_player2_attack_two_key;
+    private HotkeyButton hotkeyButton_player1_jump_key;
+    private HotkeyButton hotkeyButton_player1_left_key;
+    private HotkeyButton hotkeyButton_player1_right_key;
+    private HotkeyButton hotkeyButton_player1_run_key;
+    private HotkeyButton hotkeyButton_player1_attack_one_key;
+    private HotkeyButton hotkeyButton_player1_attack_two_key;
+    private HotkeyButton hotkeyButton_player2_jump_key;
+    private HotkeyButton hotkeyButton_player2_left_key;
+    private HotkeyButton hotkeyButton_player2_right_key;
+    private HotkeyButton hotkeyButton_player2_run_key;
+    private HotkeyButton hotkeyButton_player2_attack_one_key;
+    private HotkeyButton hotkeyButton_player2_attack_two_key;
     private BackButton BackButtonHotkey;
     private Label label_HotkeyButton_player1_jump_key;
     private Label label_HotkeyButton_player1_left_key;
@@ -102,10 +103,6 @@ public class GameScreen extends ScreenAdapter {
     public HotkeyPlayer selectedHotkeyPlayer;
     private ConfigReader ConfigReader = new ConfigReader();
     private ArrayList<Character> characters = new ArrayList<Character>();
-    private CharacterHealImage CharacterHealImageJ1;
-    private CharacterHealImage CharacterHealImageJ2;
-    private CharacterHealImage CharacterHealImageJ3;
-    private CharacterHealImage CharacterHealImageJ4;
     private int col_number = 12;
     private int row_number = 12;
     private int col_width = 0;
@@ -123,13 +120,12 @@ public class GameScreen extends ScreenAdapter {
         this.game = game;
 		map01 = new Map("../../Assets/Map/map2.tmx");
 		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../../Assets/Sound/Music/Battle-1.mp3");
-		tiledMapRenderer = map01.getTiledMapRenderer();
+        tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,1600,700);
 		j2 = new Troll(map01,7,1500,700);
         characters.add(j1);
         characters.add(j2);
-        //Menu pause
 		stagePause = new Stage(new ScreenViewport());
 		stageSettings = new Stage(new ScreenViewport());
 		stageSoundSettings = new Stage(new ScreenViewport());
@@ -172,10 +168,8 @@ public class GameScreen extends ScreenAdapter {
 		stagePause.addActor(ControlsButton.getButton());    
 		stagePause.addActor(SoundButton.getButton());    
 
-        MusicSlider = new MusicSlider(3*col_width, 6*row_height, 6*col_width, row_height, gameMusic.getVolume());
-        gameMusic.setVolume(MusicSlider.getVolume());
-        SoundSlider = new MusicSlider(3*col_width, 8*row_height, 6*col_width, row_height, 0f);
-        // sound.setVolume(SoundSlider.getVolume());
+        MusicSlider = new MusicSlider(3*col_width, 6*row_height, 6*col_width, row_height);
+        SoundSlider = new SoundSlider(3*col_width, 8*row_height, 6*col_width, row_height);
         BackButton = new BackButton("",4*col_width, 2*row_height, 4*col_width, row_height, this.game);
         labelVolumeMusic = createLabel("Musique", 3*col_width, 7*row_height, 6*col_width, row_height, labelStyle);
         labelVolumeSoundEffect = createLabel("Bruitages", 3*col_width, 9*row_height, 6*col_width, row_height, labelStyle);
@@ -188,18 +182,18 @@ public class GameScreen extends ScreenAdapter {
         stageSoundSettings.addActor(SoundSlider.getSlider());
         stageSoundSettings.addActor(BackButton.getButton());
 
-        HotkeyButton_player1_jump_key = new HotkeyButton(2*col_width, 3*row_height, col_width, row_height, this.game,"player1_jump_key");
-        HotkeyButton_player1_left_key = new HotkeyButton(2*col_width, 4*row_height, col_width, row_height, this.game,"player1_left_key");
-        HotkeyButton_player1_right_key = new HotkeyButton(2*col_width, 5*row_height, col_width, row_height, this.game,"player1_right_key");
-        HotkeyButton_player1_run_key = new HotkeyButton(2*col_width, 6*row_height, col_width, row_height, this.game,"player1_run_key");
-        HotkeyButton_player1_attack_one_key = new HotkeyButton(2*col_width, 7*row_height, col_width, row_height, this.game,"player1_attack_one_key");
-        HotkeyButton_player1_attack_two_key = new HotkeyButton(2*col_width, 8*row_height, col_width, row_height, this.game,"player1_attack_two_key");
-        HotkeyButton_player2_jump_key = new HotkeyButton(7*col_width, 3*row_height, col_width, row_height, this.game,"player2_jump_key");
-        HotkeyButton_player2_left_key = new HotkeyButton(7*col_width, 4*row_height, col_width, row_height, this.game,"player2_left_key");
-        HotkeyButton_player2_right_key = new HotkeyButton(7*col_width, 5*row_height, col_width, row_height, this.game,"player2_right_key");
-        HotkeyButton_player2_run_key = new HotkeyButton(7*col_width, 6*row_height, col_width, row_height, this.game,"player2_run_key");
-        HotkeyButton_player2_attack_one_key = new HotkeyButton(7*col_width, 7*row_height, col_width, row_height, this.game,"player2_attack_one_key");
-        HotkeyButton_player2_attack_two_key = new HotkeyButton(7*col_width, 8*row_height, col_width, row_height, this.game,"player2_attack_two_key");
+        hotkeyButton_player1_jump_key = new HotkeyButton(2*col_width, 3*row_height, col_width, row_height, this.game,"player1_jump_key");
+        hotkeyButton_player1_left_key = new HotkeyButton(2*col_width, 4*row_height, col_width, row_height, this.game,"player1_left_key");
+        hotkeyButton_player1_right_key = new HotkeyButton(2*col_width, 5*row_height, col_width, row_height, this.game,"player1_right_key");
+        hotkeyButton_player1_run_key = new HotkeyButton(2*col_width, 6*row_height, col_width, row_height, this.game,"player1_run_key");
+        hotkeyButton_player1_attack_one_key = new HotkeyButton(2*col_width, 7*row_height, col_width, row_height, this.game,"player1_attack_one_key");
+        hotkeyButton_player1_attack_two_key = new HotkeyButton(2*col_width, 8*row_height, col_width, row_height, this.game,"player1_attack_two_key");
+        hotkeyButton_player2_jump_key = new HotkeyButton(7*col_width, 3*row_height, col_width, row_height, this.game,"player2_jump_key");
+        hotkeyButton_player2_left_key = new HotkeyButton(7*col_width, 4*row_height, col_width, row_height, this.game,"player2_left_key");
+        hotkeyButton_player2_right_key = new HotkeyButton(7*col_width, 5*row_height, col_width, row_height, this.game,"player2_right_key");
+        hotkeyButton_player2_run_key = new HotkeyButton(7*col_width, 6*row_height, col_width, row_height, this.game,"player2_run_key");
+        hotkeyButton_player2_attack_one_key = new HotkeyButton(7*col_width, 7*row_height, col_width, row_height, this.game,"player2_attack_one_key");
+        hotkeyButton_player2_attack_two_key = new HotkeyButton(7*col_width, 8*row_height, col_width, row_height, this.game,"player2_attack_two_key");
         BackButtonHotkey = new BackButton("", 4*col_width, 0, col_width*4, row_height, this.game);
 
         label_HotkeyButton_player1_jump_key = createLabel("Joueur 1: Saut", 4*col_width, 3*row_height, 2*col_width, row_height, labelStyle);
@@ -232,23 +226,18 @@ public class GameScreen extends ScreenAdapter {
         stageSettings.addActor(ConfigTitleLabel);
 
         stageSettings.addActor(BackButtonHotkey.getButton());
-        stageSettings.addActor(HotkeyButton_player1_jump_key.getButton());
-        stageSettings.addActor(HotkeyButton_player1_left_key.getButton());
-        stageSettings.addActor(HotkeyButton_player1_right_key.getButton());
-        stageSettings.addActor(HotkeyButton_player1_run_key.getButton());
-        stageSettings.addActor(HotkeyButton_player1_attack_one_key.getButton());
-        stageSettings.addActor(HotkeyButton_player1_attack_two_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_jump_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_left_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_right_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_run_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_attack_one_key.getButton());
-        stageSettings.addActor(HotkeyButton_player2_attack_two_key.getButton());
-
-        CharacterHealImageJ1 = new CharacterHealImage("mage_heal_0.png",10,10,128,32,this.game);
-        CharacterHealImageJ2 = new CharacterHealImage("troll_heal_0.png",10,52,128,32,this.game);
-        // CharacterHealImageJ3 = new CharacterHealImage(getCharacterHealImage(j3,CharacterHealImageJ3),10,94,128,32,this.game);
-        // CharacterHealImageJ4 = new CharacterHealImage(getCharacterHealImage(j4,CharacterHealImageJ4),10,136,128,32,this.game);
+        stageSettings.addActor(hotkeyButton_player1_jump_key.getButton());
+        stageSettings.addActor(hotkeyButton_player1_left_key.getButton());
+        stageSettings.addActor(hotkeyButton_player1_right_key.getButton());
+        stageSettings.addActor(hotkeyButton_player1_run_key.getButton());
+        stageSettings.addActor(hotkeyButton_player1_attack_one_key.getButton());
+        stageSettings.addActor(hotkeyButton_player1_attack_two_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_jump_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_left_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_right_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_run_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_attack_one_key.getButton());
+        stageSettings.addActor(hotkeyButton_player2_attack_two_key.getButton());
     }
 
     @Override
@@ -266,53 +255,53 @@ public class GameScreen extends ScreenAdapter {
                 isSoundSettingsOpen = false;
 
             if(isSettingsOpen){
-                if(ButtonClick(HotkeyButton_player1_jump_key, "player1_jump_key", HotkeyPlayer.PLAYER1, HotkeyActor.JUMPKEY)){
+                if(ButtonClick(hotkeyButton_player1_jump_key, "player1_jump_key", HotkeyPlayer.PLAYER1, HotkeyActor.JUMPKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_jump_key.setText();
+                    hotkeyButton_player1_jump_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player1_left_key, "player1_left_key", HotkeyPlayer.PLAYER1, HotkeyActor.LEFTKEY)){
+                else if(ButtonClick(hotkeyButton_player1_left_key, "player1_left_key", HotkeyPlayer.PLAYER1, HotkeyActor.LEFTKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_jump_key.setText();
+                    hotkeyButton_player1_jump_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player1_right_key, "player1_right_key", HotkeyPlayer.PLAYER1, HotkeyActor.RIGHTKEY)){
+                else if(ButtonClick(hotkeyButton_player1_right_key, "player1_right_key", HotkeyPlayer.PLAYER1, HotkeyActor.RIGHTKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_jump_key.setText();
+                    hotkeyButton_player1_jump_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player1_run_key, "player1_run_key", HotkeyPlayer.PLAYER1, HotkeyActor.RUNKEY)){
+                else if(ButtonClick(hotkeyButton_player1_run_key, "player1_run_key", HotkeyPlayer.PLAYER1, HotkeyActor.RUNKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_jump_key.setText();
+                    hotkeyButton_player1_jump_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player1_attack_one_key, "player1_attack_one_key", HotkeyPlayer.PLAYER1, HotkeyActor.ATTACKONEKEY)){
+                else if(ButtonClick(hotkeyButton_player1_attack_one_key, "player1_attack_one_key", HotkeyPlayer.PLAYER1, HotkeyActor.ATTACKONEKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_attack_one_key.setText();
+                    hotkeyButton_player1_attack_one_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player1_attack_two_key, "player1_attack_two_key", HotkeyPlayer.PLAYER1, HotkeyActor.ATTACKTWOKEY)){
+                else if(ButtonClick(hotkeyButton_player1_attack_two_key, "player1_attack_two_key", HotkeyPlayer.PLAYER1, HotkeyActor.ATTACKTWOKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player1_attack_two_key.setText();
+                    hotkeyButton_player1_attack_two_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_jump_key, "player2_jump_key", HotkeyPlayer.PLAYER2, HotkeyActor.JUMPKEY)){
+                else if(ButtonClick(hotkeyButton_player2_jump_key, "player2_jump_key", HotkeyPlayer.PLAYER2, HotkeyActor.JUMPKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_jump_key.setText();
+                    hotkeyButton_player2_jump_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_left_key, "player2_left_key", HotkeyPlayer.PLAYER2, HotkeyActor.LEFTKEY)){
+                else if(ButtonClick(hotkeyButton_player2_left_key, "player2_left_key", HotkeyPlayer.PLAYER2, HotkeyActor.LEFTKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_left_key.setText();
+                    hotkeyButton_player2_left_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_right_key, "player2_right_key", HotkeyPlayer.PLAYER2, HotkeyActor.RIGHTKEY)){
+                else if(ButtonClick(hotkeyButton_player2_right_key, "player2_right_key", HotkeyPlayer.PLAYER2, HotkeyActor.RIGHTKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_right_key.setText();
+                    hotkeyButton_player2_right_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_run_key, "player2_run_key", HotkeyPlayer.PLAYER2, HotkeyActor.RUNKEY)){
+                else if(ButtonClick(hotkeyButton_player2_run_key, "player2_run_key", HotkeyPlayer.PLAYER2, HotkeyActor.RUNKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_run_key.setText();
+                    hotkeyButton_player2_run_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_attack_one_key, "player2_attack_one_key", HotkeyPlayer.PLAYER2, HotkeyActor.ATTACKONEKEY)){
+                else if(ButtonClick(hotkeyButton_player2_attack_one_key, "player2_attack_one_key", HotkeyPlayer.PLAYER2, HotkeyActor.ATTACKONEKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_attack_one_key.setText();
+                    hotkeyButton_player2_attack_one_key.setText();
                 }
-                else if(ButtonClick(HotkeyButton_player2_attack_two_key, "player2_attack_two_key", HotkeyPlayer.PLAYER2, HotkeyActor.ATTACKTWOKEY)){
+                else if(ButtonClick(hotkeyButton_player2_attack_two_key, "player2_attack_two_key", HotkeyPlayer.PLAYER2, HotkeyActor.ATTACKTWOKEY)){
                     KeyEvent.reloadConfig();
-                    HotkeyButton_player2_attack_two_key.setText();
+                    hotkeyButton_player2_attack_two_key.setText();
                 }
                 else {
                     selectedHotkeyPlayer = HotkeyPlayer.NONE;
@@ -329,9 +318,7 @@ public class GameScreen extends ScreenAdapter {
                 }
             } else if(isSoundSettingsOpen){
                 gameMusic.setVolume(MusicSlider.getVolume());
-                // gameMusic.setVolume(SoundSlider.getVolume());
-                ConfigReader.updateGeneralProperties("Music_Volume", MusicSlider.getVolume() + "");
-                ConfigReader.updateGeneralProperties("Sound_Volume", SoundSlider.getVolume() + "");
+                updateSoundButton();
                 if(BackButton.goBack())
                     SoundButton.reset();
                     BackButton.reset();
@@ -365,10 +352,6 @@ public class GameScreen extends ScreenAdapter {
             j1.move();
             j2.move();
             KeyEvent.keyPressed(j1,j2);
-            CharacterHealImageJ1.setHealBarPercent(j1.getHp(), j1.getMaxHp());
-            CharacterHealImageJ2.setHealBarPercent(j2.getHp(), j2.getMaxHp());
-            CharacterHealImageJ1.draw(game.batch,stateTime);
-            CharacterHealImageJ2.draw(game.batch,stateTime);
             j1.draw(game.batch, stateTime);
             j2.draw(game.batch, stateTime);
         } else {
@@ -398,6 +381,9 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         ResumeButton.reset();
+        if(j1.isDead() || j2.isDead()){
+            game.setScreen(new EndGameScreen(game, (j1.isDead() ? j2 : j1)));
+        }
     }
 
     @Override
@@ -413,33 +399,33 @@ public class GameScreen extends ScreenAdapter {
 	}
 
     public void resetAllKeyBindInput(){
-        HotkeyButton_player1_jump_key.reset();
-        HotkeyButton_player1_left_key.reset();
-        HotkeyButton_player1_right_key.reset();
-        HotkeyButton_player1_run_key.reset();
-        HotkeyButton_player1_attack_one_key.reset();
-        HotkeyButton_player1_attack_two_key.reset();
-        HotkeyButton_player2_jump_key.reset();
-        HotkeyButton_player2_left_key.reset();
-        HotkeyButton_player2_right_key.reset();
-        HotkeyButton_player2_run_key.reset();
-        HotkeyButton_player2_attack_one_key.reset();
-        HotkeyButton_player2_attack_two_key.reset();
+        hotkeyButton_player1_jump_key.reset();
+        hotkeyButton_player1_left_key.reset();
+        hotkeyButton_player1_right_key.reset();
+        hotkeyButton_player1_run_key.reset();
+        hotkeyButton_player1_attack_one_key.reset();
+        hotkeyButton_player1_attack_two_key.reset();
+        hotkeyButton_player2_jump_key.reset();
+        hotkeyButton_player2_left_key.reset();
+        hotkeyButton_player2_right_key.reset();
+        hotkeyButton_player2_run_key.reset();
+        hotkeyButton_player2_attack_one_key.reset();
+        hotkeyButton_player2_attack_two_key.reset();
     }
 
     public void changeEnableStateAllKeyBindButton(boolean state){
-        HotkeyButton_player1_jump_key.changeEnabled(state);
-        HotkeyButton_player1_left_key.changeEnabled(state);
-        HotkeyButton_player1_right_key.changeEnabled(state);
-        HotkeyButton_player1_run_key.changeEnabled(state);
-        HotkeyButton_player1_attack_one_key.changeEnabled(state);
-        HotkeyButton_player1_attack_two_key.changeEnabled(state);
-        HotkeyButton_player2_jump_key.changeEnabled(state);
-        HotkeyButton_player2_left_key.changeEnabled(state);
-        HotkeyButton_player2_right_key.changeEnabled(state);
-        HotkeyButton_player2_run_key.changeEnabled(state);
-        HotkeyButton_player2_attack_one_key.changeEnabled(state);
-        HotkeyButton_player2_attack_two_key.changeEnabled(state);
+        hotkeyButton_player1_jump_key.changeEnabled(state);
+        hotkeyButton_player1_left_key.changeEnabled(state);
+        hotkeyButton_player1_right_key.changeEnabled(state);
+        hotkeyButton_player1_run_key.changeEnabled(state);
+        hotkeyButton_player1_attack_one_key.changeEnabled(state);
+        hotkeyButton_player1_attack_two_key.changeEnabled(state);
+        hotkeyButton_player2_jump_key.changeEnabled(state);
+        hotkeyButton_player2_left_key.changeEnabled(state);
+        hotkeyButton_player2_right_key.changeEnabled(state);
+        hotkeyButton_player2_run_key.changeEnabled(state);
+        hotkeyButton_player2_attack_one_key.changeEnabled(state);
+        hotkeyButton_player2_attack_two_key.changeEnabled(state);
     }
 
     public boolean ButtonClick(HotkeyButton HotkeyButton, String s, HotkeyPlayer player, HotkeyActor actor){
@@ -472,6 +458,25 @@ public class GameScreen extends ScreenAdapter {
         label.setPosition(x, y);
         label.setWrap(true);
         return label;
+    }
+
+    private void updateSoundButton(){
+        ResumeButton.updateVolume();
+        ControlsButton.updateVolume();
+        BackButton.updateVolume();
+        hotkeyButton_player1_jump_key.updateVolume();
+        hotkeyButton_player1_left_key.updateVolume();
+        hotkeyButton_player1_right_key.updateVolume();
+        hotkeyButton_player1_run_key.updateVolume();
+        hotkeyButton_player1_attack_one_key.updateVolume();
+        hotkeyButton_player1_attack_two_key.updateVolume();
+        hotkeyButton_player2_jump_key.updateVolume();
+        hotkeyButton_player2_left_key.updateVolume();
+        hotkeyButton_player2_right_key.updateVolume();
+        hotkeyButton_player2_run_key.updateVolume();
+        hotkeyButton_player2_attack_one_key.updateVolume();
+        hotkeyButton_player2_attack_two_key.updateVolume();
+        BackButtonHotkey.updateVolume();
     }
 
 }

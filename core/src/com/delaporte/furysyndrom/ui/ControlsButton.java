@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
+import com.delaporte.furysyndrom.Sound.AmbiantSound;
 
 public class ControlsButton extends CustomButton {
   private ImageButton button;
@@ -40,7 +41,7 @@ public class ControlsButton extends CustomButton {
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isSettingsOpen=true;
-        System.out.println("SETTINGS");
+        sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

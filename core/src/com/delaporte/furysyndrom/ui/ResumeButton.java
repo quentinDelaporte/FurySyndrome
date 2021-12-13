@@ -13,12 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
+import com.delaporte.furysyndrom.Sound.AmbiantSound;
 
 public class ResumeButton extends CustomButton {
   private ImageButton button;
   private boolean isPaused = true;
 
-  public ResumeButton(String text, int x, int y, int width, int height, FurySyndrom game){
+  public ResumeButton(String text, int x, int y, int width, int height, FurySyndrom game) {
     super(
       text,
       x,
@@ -40,7 +41,7 @@ public class ResumeButton extends CustomButton {
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isPaused=false;
-        System.out.println("RESUME");
+        sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -17,37 +17,55 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.delaporte.furysyndrom.ui.CharacterHealImage;
 
 public abstract class Character {
     public int hp;
-    public final int maxHp, strength, defence, agility;
+    public final int maxHp;
+    public final int strength;
+    public final int defence;
+    public final int agility;
+    public int collisionLayer;
     public int additionalStrength;
     public int additionaldefence;
     public int additionalAgility;
-    public String nom;
-    public float yPosition;
-    public float xPosition;
     public int width;
     public int height;
+    private int hitboxHeight;
+    private int hitboxWidth;
+    private int hitboxOffsetX;
+    private int hitboxOffsetY;
+    public float yPosition;
+    public float xPosition;
+    public float initialY;
+    public final double jumpHeight;
+    public boolean isAttacking = false;
+    public boolean canAttack = true;
+    public String nom;
     public Rectangle hitbox;
     public CharacterEtat etat;
     public CharacterFacing facing;
-    public Anim Animation;
-    public final double jumpHeight;
-    public float initialY;
+    public Anim animation;
     public Map m;
-    public int collisionLayer;
-    public boolean isAttacking = false;
     public ArrayList<Character> characters = new ArrayList<Character>();
-    private int hitboxHeight, hitboxWidth, hitboxOffsetX, hitboxOffsetY;
+    private CharacterHealImage characterHealImage;
+
     public enum CharacterEtat {
-        STATIC, JUMPRUN, JUMP, JUMPWALK, WALK, RUN, FALL, FALLWALK, FALLRUN, DEAD;
+        STATIC, 
+        JUMPRUN, 
+        JUMP, 
+        JUMPWALK, 
+        WALK, 
+        RUN, 
+        FALL, 
+        FALLWALK, 
+        FALLRUN, 
+        DEAD;
     }
-    public boolean canAttack = true;
- 
 
     public enum CharacterFacing {
-        LEFT, RIGHT
+        LEFT,
+        RIGHT
     }
     
     /**
@@ -65,12 +83,13 @@ public abstract class Character {
         float yPosition, 
         int width, 
         int height, 
-        Anim Animation, 
+        Anim animation, 
         double jumpHeight,
         int hitboxWidth,
         int hitboxHeight, 
         int hitboxOffsetX, 
-        int hitboxOffsetY
+        int hitboxOffsetY,
+        CharacterHealImage characterHealImage
     ){
         this.m = m;
         this.collisionLayer = collisionLayer;
@@ -90,12 +109,13 @@ public abstract class Character {
         this.hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
-        this.Animation = Animation;
+        this.animation = animation;
         this.jumpHeight = jumpHeight;
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
         this.hitboxOffsetX = hitboxOffsetX;
         this.hitboxOffsetY = hitboxOffsetY;
+        this.characterHealImage = characterHealImage;
     }
 
     protected abstract void selectAnimation();
@@ -145,8 +165,9 @@ public abstract class Character {
         // drawHitbox(batch, getAttackHitbox(), Color.RED);
         // drawHitbox(batch, hitbox, Color.GREEN);
         selectAnimation();
-        batch.draw(Animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
+        batch.draw(animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
         hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
+        characterHealImage.draw(batch, stateTime);
     }
 
 	public boolean isJumping(){
@@ -441,6 +462,7 @@ public abstract class Character {
 
     public void getDamaged(int damageHp){
         this.hp -= (int)((1.0 - ((float) this.defence/100.0)) * (float)damageHp);
+        characterHealImage.setHealBarPercent(hp, maxHp);
     }
 
     public void drawHitbox(SpriteBatch batch, Rectangle hitbox, Color color){

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
+import com.delaporte.furysyndrom.Sound.AmbiantSound;
 
 public class ButtonSelectorPlayer extends CustomButton {
   private Skin skin;
@@ -19,7 +20,7 @@ public class ButtonSelectorPlayer extends CustomButton {
   private boolean nextGameState = false;
   private int nbPlayer=0;
   private int nbPlayerBtn;
-  public ButtonSelectorPlayer(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game){
+  public ButtonSelectorPlayer(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game) {
     super(
       text,
       x,
@@ -46,6 +47,7 @@ public class ButtonSelectorPlayer extends CustomButton {
         if(getNbPlayer() != 0){
           game.setScreen(new GameScreen(game));
         }
+        sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

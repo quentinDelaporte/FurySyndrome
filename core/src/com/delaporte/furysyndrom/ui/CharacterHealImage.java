@@ -29,18 +29,16 @@ public class CharacterHealImage extends Actor {
   private int y;
   private int width;
   private int height;
-  private FurySyndrom game;
   private Texture texture;
   private Color color = Color.RED;
   private int healBarWidth = 99;
 
 
-  public CharacterHealImage(String path, int x, int y, int width, int height, FurySyndrom game){
+  public CharacterHealImage(String path, int x, int y, int width, int height){
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.game = game;
     this.CharacterHealImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/HEAL_STATE/PNG/" + path)))));
     this.CharacterHealImage.setSize(width, height);
     this.CharacterHealImage.setPosition(x,y);
