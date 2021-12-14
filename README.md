@@ -63,7 +63,6 @@ Effet: Téléportation aléatoire
 URGENT
 
 - Anim inverse du troll
-- Test unitaire
 - Commentaires
 - Refactoring
 - Quand on change une config de hotkey: recharger fichier de conf
