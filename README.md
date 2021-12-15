@@ -27,6 +27,7 @@
 - Refactoring
 - Implémenter animations de mort & attaques
 - Débug keyBind
+- Ajout texte sur l'écran de fin
 
 ## III. Crédits
 
