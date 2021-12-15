@@ -66,3 +66,4 @@ URGENT
 - Commentaires
 - Refactoring
 - Quand on change une config de hotkey: recharger fichier de conf
+- Débug keyBind

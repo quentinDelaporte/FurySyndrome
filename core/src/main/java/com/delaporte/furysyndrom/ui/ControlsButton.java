@@ -32,8 +32,8 @@ public class ControlsButton extends CustomButton {
 
   @Override
   public void generer(){
-    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/controlsButton.png"))));
-    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/controlsButton.png"))));
+    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/controlsButton.png"))));
+    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/controlsButton.png"))));
     button = new ImageButton(imageup, imagedown);
     button.setSize(width, height);
     button.setPosition(x,y);

@@ -34,7 +34,7 @@ public class ButtonSelectorPlayer extends CustomButton {
 
   @Override
   public void generer(){
-    skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
+    skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
     button = new TextButton(text, skin);
     
     button.setSize(width, height);

@@ -32,8 +32,8 @@ public class BackButton extends CustomButton {
 
   @Override
   public void generer(){
-    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/BackButton.png"))));
-    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/BackButton.png"))));
+    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/BackButton.png"))));
+    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/BackButton.png"))));
     button = new ImageButton(imageup, imagedown);
     button.setSize(width, height);
     button.setPosition(x,y);

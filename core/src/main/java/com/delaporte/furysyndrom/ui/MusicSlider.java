@@ -15,7 +15,7 @@ public class MusicSlider {
     private ConfigReader configReader = new ConfigReader();
 
     public MusicSlider(int x, int y, int width, int height) {
-        skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
+        skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
         slider = new Slider(0, 1, 0.1f, false, skin);
         slider.setSize(width, height);
         slider.setPosition(x, y);

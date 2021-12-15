@@ -31,8 +31,8 @@ public class SoundButton extends CustomButton {
 
   @Override
   public void generer(){
-    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/optionsButton.png"))));
-    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/BUTTONS/optionsButton.png"))));
+    TextureRegionDrawable imageup = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/optionsButton.png"))));
+    TextureRegionDrawable imagedown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/BUTTONS/optionsButton.png"))));
     button = new ImageButton(imageup, imagedown);
     button.setSize(width, height);
     button.setPosition(x,y);

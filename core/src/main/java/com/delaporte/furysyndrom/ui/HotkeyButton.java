@@ -43,7 +43,7 @@ public class HotkeyButton {
   public int y;
   public int width;
   public int height;
-  public AmbiantSound sound= new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../../Assets/Sound/FX/UI/menuNavigation.wav");
+  public AmbiantSound sound= new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
   FurySyndrom game;
 
   public HotkeyButton(int x, int y, int width, int height, FurySyndrom game, String param_name){
@@ -59,7 +59,7 @@ public class HotkeyButton {
   }
 
   public void generer(){
-    skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
+    skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
     button = new TextButton(key_value+"", skin);
     //Text: mapper les keysCode aux touches 
     button.setSize(width, height);

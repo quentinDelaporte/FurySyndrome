@@ -12,8 +12,8 @@ public class ConfigReader {
     public ConfigReader(){
         prop1 = new Properties();
         prop2 = new Properties();
-        String fileName1 = "../../Assets/Config/parameters.config";
-        String fileName2 = "../../Assets/Config/keybind.config";
+        String fileName1 = "../assets/Config/parameters.config";
+        String fileName2 = "../assets/Config/keybind.config";
 
         try (FileInputStream file = new FileInputStream(fileName1)) {
             prop1.load(file);
@@ -36,9 +36,9 @@ public class ConfigReader {
     public void updateGeneralProperties(String key, String value) {
         try{
             Properties prop =new Properties();
-            prop.load(new FileInputStream("../../Assets/Config/parameters.config"));
+            prop.load(new FileInputStream("../assets/Config/parameters.config"));
             prop.setProperty(key, value);
-            prop.store(new FileOutputStream("../../Assets/Config/parameters.config"),null);
+            prop.store(new FileOutputStream("../assets/Config/parameters.config"),null);
         } catch (FileNotFoundException exception) {
         } catch (IOException exception) {
         }
@@ -46,9 +46,9 @@ public class ConfigReader {
     public void updateKeyProperties(String key, String value){
         try{
             Properties prop =new Properties();
-            prop.load(new FileInputStream("../../Assets/Config/keybind.config"));
+            prop.load(new FileInputStream("../assets/Config/keybind.config"));
             prop.setProperty(key, value);
-            prop.store(new FileOutputStream("../../Assets/Config/keybind.config"),null);
+            prop.store(new FileOutputStream("../assets/Config/keybind.config"),null);
         } catch (FileNotFoundException exception) {
         } catch (IOException exception) {
         }

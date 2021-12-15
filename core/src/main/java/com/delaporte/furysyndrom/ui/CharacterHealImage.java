@@ -39,7 +39,7 @@ public class CharacterHealImage extends Actor {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.CharacterHealImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../../Assets/Texture/UI/HEAL_STATE/PNG/" + path)))));
+    this.CharacterHealImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/HEAL_STATE/PNG/" + path)))));
     this.CharacterHealImage.setSize(width, height);
     this.CharacterHealImage.setPosition(x,y);
     Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);

@@ -27,7 +27,7 @@ public class Mage extends Character {
             yPosition,
             32,
             32,
-            new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_IDLE.png"), 5, 1, 0.1f),
+            new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_IDLE.png"), 5, 1, 0.1f),
             1.5,
             32,
             32, 
@@ -41,34 +41,34 @@ public class Mage extends Character {
     public void selectAnimation(){
         if(this.etat == CharacterEtat.JUMPRUN || this.etat == CharacterEtat.JUMPWALK){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_L_JUMP.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_L_JUMP.png"), 5, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_JUMP.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_JUMP.png"), 5, 1, 0.1f);
         } else if(this.etat == CharacterEtat.STATIC){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_L_IDLE.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_L_IDLE.png"), 5, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_IDLE.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_IDLE.png"), 5, 1, 0.1f);
         } else if(this.etat == CharacterEtat.RUN){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_L_RUN.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_L_RUN.png"), 5, 1, 0.1f);
             else 
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_RUN.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_RUN.png"), 5, 1, 0.1f);
         } else if(this.etat == CharacterEtat.WALK){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_L_WALK.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_L_WALK.png"), 5, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_WALK.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_WALK.png"), 5, 1, 0.1f);
         } else if(this.etat == CharacterEtat.DEAD){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_Lss_DIE.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_Lss_DIE.png"), 5, 1, 0.1f);
             else 
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_DIE.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_DIE.png"), 5, 1, 0.1f);
         } else {
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_L_IDLE.png"), 5, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_L_IDLE.png"), 5, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Mage_R_IDLE.png"), 5, 1, 0.1f);     
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/WIZARD/Mage_R_IDLE.png"), 5, 1, 0.1f);     
         }
     }
 

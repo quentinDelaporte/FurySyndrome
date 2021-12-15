@@ -27,7 +27,7 @@ public class Troll extends Character {
             yPosition,
             64,
             64,
-            new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f),
+            new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_IDLE.png"), 10, 1, 0.1f),
             1.5,
             32,
             32,
@@ -41,34 +41,34 @@ public class Troll extends Character {
     public void selectAnimation(){
         if(this.etat == CharacterEtat.JUMPRUN || this.etat == CharacterEtat.JUMPWALK){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_JUMP.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_JUMP.png"), 10, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_JUMP.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_JUMP.png"), 10, 1, 0.1f);
         } else if(this.etat == CharacterEtat.STATIC){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_IDLE.png"), 10, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_IDLE.png"), 10, 1, 0.1f);
         } else if(this.etat == CharacterEtat.RUN){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_RUN.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_RUN.png"), 10, 1, 0.1f);
             else 
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_RUN.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_RUN.png"), 10, 1, 0.1f);
         } else if(this.etat == CharacterEtat.WALK){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_WALK.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_WALK.png"), 10, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_WALK.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_WALK.png"), 10, 1, 0.1f);
         } else if(this.etat == CharacterEtat.DEAD){
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_DIE.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_DIE.png"), 10, 1, 0.1f);
             else 
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_DIE.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_DIE.png"), 10, 1, 0.1f);
         } else {
             if(this.facing == CharacterFacing.LEFT)
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f);
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_L_IDLE.png"), 10, 1, 0.1f);
             else
-                this.animation = new Anim(Gdx.files.internal("../../Assets/Texture/Troll_R_IDLE.png"), 10, 1, 0.1f);     
+                this.animation = new Anim(Gdx.files.internal("../assets/Texture/CHARACTERS/TROLL/Troll_R_IDLE.png"), 10, 1, 0.1f);     
         }
     }
 

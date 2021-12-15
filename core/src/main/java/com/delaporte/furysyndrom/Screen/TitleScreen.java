@@ -41,7 +41,7 @@ public class TitleScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.setTitle("FurySyndrom");
         game.batch.begin();
-        game.batch.draw(new Texture(Gdx.files.internal("../../Assets/MainImage.png")), 0, 0, 640, 480);
+        game.batch.draw(new Texture(Gdx.files.internal("../assets/MainImage.png")), 0, 0, 640, 480);
         game.camera.update();
         game.batch.end();
     }

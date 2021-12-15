@@ -26,7 +26,7 @@ public abstract class CustomButton {
   public int width;
   public int height;
   private ConfigReader ConfigReader = new ConfigReader();
-  public AmbiantSound sound = new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../../Assets/Sound/FX/UI/menuNavigation.wav");
+  public AmbiantSound sound = new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
   FurySyndrom game;
 
   protected CustomButton(String text, int x, int y, int width, int height, FurySyndrom game){

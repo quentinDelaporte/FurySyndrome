@@ -42,7 +42,7 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         
-        game.batch.draw(new Texture(Gdx.files.internal("../../Assets/MainImage.png")), 0, 0, 640, 480);
+        game.batch.draw(new Texture(Gdx.files.internal("../assets/MainImage.png")), 0, 0, 640, 480);
         game.batch.end();	
         stage.act();
         stage.draw();

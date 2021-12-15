@@ -19,41 +19,31 @@ import com.delaporte.furysyndrom.Anim;
 import com.delaporte.furysyndrom.Map;
 
 public abstract class Character {
-    //Statistiques du personnage
     public int hp;
     public final int maxHp;
     public final int strength;
     public final int defence;
     public final int agility;
     public String nom;
-    //Couche de collision de la map
     public int collisionLayer;
-    //Dimentions du skin
     public int width;
     public int height;
-    //Dimentions de la hitbox
     private int hitboxHeight;
     private int hitboxWidth;
     private int hitboxOffsetX;
     private int hitboxOffsetY;
     public Rectangle hitbox;
-    //position du personnage
     public float yPosition;
     public float xPosition;
-    //Position y du personnage avant un saut.
     public float initialY;
     public final double jumpHeight;
-    //Gestion des attaques
     public boolean isAttacking = false;
     public boolean canAttack = true;
-    //Etat et sens du personnage (gestion des mvmts et animations)
     public CharacterEtat etat;
     public CharacterFacing facing;
     public Anim animation;
     public Map m;
-    //Liste des autres personnage utilisé pour les attaques (verif de chaque hitbox)
     public ArrayList<Character> characters = new ArrayList<Character>();
-    //Image de vie du personnage
     private CharacterHealImage characterHealImage;
 
     public enum CharacterEtat {
@@ -121,21 +111,12 @@ public abstract class Character {
         this.characterHealImage = characterHealImage;
     }
 
-    /**
-     * Fonction servant à choisir l'animation en cours à l'aide de CharacterEtat et CharacterFacing
-     */
     protected abstract void selectAnimation();
 
-    /**
-     * Retourne le type du personnage (mage, troll)
-     */
     public String getType(){
         return "undefined";
     }
 
-    /**
-     * Si le personnage as un coordonnée y négative il meurs. Si il n'as plus de hp il meurt.
-     */
     public boolean isDead() {
         if (yPosition < 0 || hp < 1) {
             etat = CharacterEtat.DEAD;
@@ -144,30 +125,18 @@ public abstract class Character {
         return false;
     }
 
-    /**
-     * Deplacement sur l'axe X
-     */
     public void deplacerX(float deltaX){
         this.xPosition += deltaX;
     }
 
-    /**
-     * Déplacement sur l'axe Y
-     */
     public void deplacerY(float deltaY){
         this.yPosition += deltaY;
     }
 
-    /**
-     * Change le sens pour gauche
-     */
     public void setFacingToLeft(){
         this.facing = CharacterFacing.LEFT;
     }
     
-    /**
-     * Change le sens pour droite
-     */
     public void setFacingToRight(){
         this.facing = CharacterFacing.RIGHT;
     }
@@ -185,10 +154,6 @@ public abstract class Character {
         this.etat = CharacterEtat.RUN;
     }
 
-    /**
-     * Fonction qui dessine le hero et l'image de la vie qui lui correspond.
-     * Dessine les hitbox si necessaire.
-     */
     public void draw(SpriteBatch batch, float stateTime) {
         //Si besoin de débug: 
         // drawHitbox(batch, getAttackHitbox(), Color.RED);
@@ -199,24 +164,14 @@ public abstract class Character {
         characterHealImage.draw(batch, stateTime);
     }
 
-    /**
-     * Retourne vrai si le personnage est entrain de sauter
-     */
 	public boolean isJumping(){
         return (this.etat == CharacterEtat.JUMP || this.etat == CharacterEtat.JUMPWALK || this.etat == CharacterEtat.JUMPRUN);
     }
 
-    /**
-     * Retourne vrai si le personnage est entrain de chutter
-     */
     public boolean isFalling(){
         return (this.etat == CharacterEtat.FALL || this.etat == CharacterEtat.FALLWALK || this.etat == CharacterEtat.FALLRUN);
     }
 
-    /**
-     * Change l'état du personnage pour un saut. 
-     * Prends en compte les déplacements (jumpwalk & jumprun)
-     */
     public void setCharacterEtatJUMP(){
         if(
             this.etat != CharacterEtat.JUMP &&
@@ -302,10 +257,6 @@ public abstract class Character {
         }
     }
 
-    /**
-     * Si l'utilisateur n'est pas dans un saut, on applique la gravité et qu'il n'est pas en colision avec le sol
-     * 4 de haut / tick
-     */
     public void appliquerGravite(){
         if(!this.isJumping()){
             if(!detectCollision(xPosition, yPosition-4, width, height)){
@@ -319,11 +270,6 @@ public abstract class Character {
         }
     }
 
-    /**
-     * Détection des collisions de la map
-     * On converti les objets de la couche de collision en rectangle ou en polygon puis on vérifie que la hitbox du personnage et celle des polygons ne se superpossent pas.
-     * Dans le cas d'un polygon, on crée une hitbox temporaire polygonale a partir de la hitbox rectangulaire
-     */
     public boolean detectCollision(float x, float y, int w, int h) {
         Rectangle futurHitbox = new Rectangle((int) (x+0.25*w), (int)(y+0.25*h), (int) (0.5*w), (int) (0.5*h));   
         MapObjects collisionObjects = m.getCollisionTile(collisionLayer);
@@ -344,9 +290,6 @@ public abstract class Character {
         return false;
 	}
 
-    /**
-     * Applique la chute à la fin du saut
-     */
     public void fall(){
         if(yPosition > initialY) {
             appliquerGravite();
@@ -459,12 +402,12 @@ public abstract class Character {
     }
 
     public Rectangle getAttackHitbox(){
-            return new Rectangle(
-                (int)(xPosition + (facing == CharacterFacing.LEFT ? -(hitboxWidth/2 - hitboxOffsetX) : (hitboxWidth/2 + hitboxOffsetX))) , 
-                (int)(yPosition + (hitboxHeight/2 + hitboxOffsetY)), 
-                (int)(hitboxWidth), 
-                (int)(0.5*hitboxHeight)
-            );
+        return new Rectangle(
+            (int)(xPosition + (facing == CharacterFacing.LEFT ? -(hitboxWidth/2 - hitboxOffsetX) : (hitboxWidth/2 + hitboxOffsetX))) , 
+            (int)(yPosition + (hitboxHeight/2 + hitboxOffsetY)), 
+            (int)(hitboxWidth), 
+            (int)(0.5*hitboxHeight)
+        );
     }
 
     public void isAttacking(){
@@ -476,7 +419,6 @@ public abstract class Character {
     }
 
     /**
-     * Gestion des attaques
      * Quand une attaque est lancé on ne peux plus attaquer pendant 0.45s
      */
     public void attaquer(ArrayList<Character> characters){
@@ -499,17 +441,11 @@ public abstract class Character {
         }
     }
 
-    /**
-     * Gestion des dégats recu (prise en compte de la défence)
-     */
     public void getDamaged(int damageHp){
         this.hp -= (int)((1.0 - ((float) this.defence/100.0)) * (float)damageHp);
         characterHealImage.setHealBarPercent(hp, maxHp);
     }
 
-    /**
-     * Dessine la hitbox passé en parametre
-     */
     public void drawHitbox(SpriteBatch batch, Rectangle hitbox, Color color){
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);

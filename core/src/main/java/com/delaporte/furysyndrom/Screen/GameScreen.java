@@ -100,7 +100,7 @@ public class GameScreen extends ScreenAdapter {
     private Label VolumeConfigTitleLabel;
     private Label labelVolumeMusic;
     private Label labelVolumeSoundEffect;
-    private Skin skin = new Skin(Gdx.files.internal("../../Assets/Skin/comic-ui.json"));
+    private Skin skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
     public HotkeyActor selectedHotkeyActor;
     public HotkeyPlayer selectedHotkeyPlayer;
     private ConfigReader ConfigReader = new ConfigReader();
@@ -112,8 +112,8 @@ public class GameScreen extends ScreenAdapter {
     
     public GameScreen(FurySyndrom game) {
         this.game = game;
-		map01 = new Map("../../Assets/Map/map2.tmx");
-		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../../Assets/Sound/Music/Battle-1.mp3");
+		map01 = new Map("../assets/Map/map2.tmx");
+		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/Battle-1.mp3");
         tiledMapRenderer = map01.getTiledMapRenderer();
 		parameter = new Parameter();
 		j1 = new Mage(map01,7,1600,700);
@@ -144,13 +144,13 @@ public class GameScreen extends ScreenAdapter {
         );
         
         LabelStyle labelStyle = new Label.LabelStyle();
-        BitmapFont Font = new BitmapFont(Gdx.files.internal("../../Assets/Skin/Iosevka-Slab.fnt"));
+        BitmapFont Font = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
         labelStyle.font = Font;
         labelStyle.fontColor = Color.WHITE;
         Font.getData().setScale(1.3f);
 
         LabelStyle TitleStyle = new Label.LabelStyle();
-        BitmapFont Font2 = new BitmapFont(Gdx.files.internal("../../Assets/Skin/Iosevka-Slab.fnt"));
+        BitmapFont Font2 = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
         TitleStyle.font = Font2;
         TitleStyle.fontColor = Color.WHITE;
         Font2.getData().setScale(3f);
@@ -349,7 +349,7 @@ public class GameScreen extends ScreenAdapter {
             j1.draw(game.batch, stateTime);
             j2.draw(game.batch, stateTime);
         } else {
-            game.batch.draw(new Texture(Gdx.files.internal("../../Assets/pauseBg.jpg")), 0, 0, game.w, game.h);
+            game.batch.draw(new Texture(Gdx.files.internal("../assets/pauseBg.jpg")), 0, 0, game.w, game.h);
             if(!isSoundSettingsOpen && !isSettingsOpen){
                 Gdx.input.setInputProcessor(stagePause);
             } else if (isSoundSettingsOpen){
