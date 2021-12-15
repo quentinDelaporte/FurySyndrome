@@ -36,7 +36,6 @@ import com.delaporte.furysyndrom.Character.Troll;
 import com.delaporte.furysyndrom.Character.Character;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.KeyEvent;
-import com.delaporte.furysyndrom.Parameter;
 import com.delaporte.furysyndrom.Map;
 import com.delaporte.furysyndrom.utils.ConfigReader;
 import com.delaporte.furysyndrom.utils.HotkeyActor;
@@ -55,7 +54,6 @@ public class GameScreen extends ScreenAdapter {
 	private TiledMapRenderer tiledMapRenderer;
     private Map map01;
 	private float stateTime;
-	private Parameter parameter;
 	private Character j1;
 	private Character j2;
 	private KeyEvent KeyEvent = new KeyEvent();
@@ -115,7 +113,6 @@ public class GameScreen extends ScreenAdapter {
 		map01 = new Map("../assets/Map/map2.tmx");
 		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/Battle-1.mp3");
         tiledMapRenderer = map01.getTiledMapRenderer();
-		parameter = new Parameter();
 		j1 = new Mage(map01,7,1600,700);
 		j2 = new Troll(map01,7,1500,700);
         characters.add(j1);

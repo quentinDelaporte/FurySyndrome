@@ -24,6 +24,7 @@
 - Implémentation d'effets sonores (attaque, mort...)
 - Implémentation de plusieurs maps
 
+- Reset position de spawn
 - Refactoring
 - Implémenter animations de mort & attaques
 - Débug keyBind
