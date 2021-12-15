@@ -14,7 +14,7 @@ import com.delaporte.furysyndrom.utils.ConfigReader;
      *          NUMPAD_6 : RIGHT
      *          NUMPAD_0 : RUN
      *          NUMPAD_8 : UP
-     *      J2:
+     *      j:
      *          Q : LEFT
      *          D : RIGHT
      *          CONTROL_LEFT : RUN
@@ -25,60 +25,43 @@ public class KeyEvent {
     private Character j1; 
     private Character j2; 
     private ConfigReader ConfigReader = new ConfigReader();
+
     public KeyEvent(){
     }
-
- 
 
     public void keyPressed(Character j1, Character j2){
         this.j1 = j1;
         this.j2 = j2;
-        if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_left_key")))) j1.setFacingToLeft();
-        else if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_right_key")))) j1.setFacingToRight();
-        if(isRunning(1) && !isWalking(1) && !isFalling(j1) && !isJumping(j1,1))
-            j1.setCharacterEtatRUN();
-        if(!isRunning(1) && isWalking(1) && !isFalling(j1) && !isJumping(j1,1))
-            j1.setCharacterEtatWALK();
-        if(isJumping(j1,1) && !isFalling(j1) && !isWalking(1) && !isRunning(1) && canJump(j1,1))
-            j1.setCharacterEtatJUMP();
-        if(isJumping(j1,1) && isWalking(1) && !isRunning(1))
-            j1.setCharacterEtatJUMPWALK();
-        if(isJumping(j1,1) && !isWalking(1) && isRunning(1))
-            j1.setCharacterEtatJUMPRUN();
-        if(isFalling(j1) && !isWalking(1) && !isRunning(1))
-            j1.setCharacterEtatFALLSTATIC();
-        if(isFalling(j1) && !isWalking(1) && isRunning(1))
-            j1.setCharacterEtatFALLRUN();
-        if(isFalling(j1) && isWalking(1) && !isRunning(1))
-            j1.setCharacterEtatFALLWALK();
-        if(!isFalling(j1) && !isRunning(1) && !isJumping(j1,1) && !isWalking(1))
-            j1.setCharacterEtatSTATIC();
-        if(isAttacking(1)){
-            j1.isAttacking();
-        }
             
-        if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_left_key")))) j2.setFacingToLeft();
-        else if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_right_key")))) j2.setFacingToRight();
-        if(isRunning(2) && !isWalking(2) && !isFalling(j2) && !isJumping(j2,2))
-            j2.setCharacterEtatRUN();
-        if(!isRunning(2) && isWalking(2) && !isFalling(j2) && !isJumping(j2,2))
-            j2.setCharacterEtatWALK();
-        if(isJumping(j2,2) && !isFalling(j2) && !isWalking(2) && !isRunning(2) && canJump(j2,2))
-            j2.setCharacterEtatJUMP();
-        if(isJumping(j2,2) && isWalking(2) && !isRunning(2))
-            j2.setCharacterEtatJUMPWALK();
-        if(isJumping(j2,2) && !isWalking(2) && isRunning(2))
-            j2.setCharacterEtatJUMPRUN();
-        if(isFalling(j2) && !isWalking(2) && !isRunning(2))
-            j2.setCharacterEtatFALLSTATIC();
-        if(isFalling(j2) && !isWalking(2) && isRunning(2))
-            j2.setCharacterEtatFALLRUN();
-        if(isFalling(j2) && isWalking(2) && !isRunning(2))
-            j2.setCharacterEtatFALLWALK();
-        if(!isFalling(j2) && !isRunning(2) && !isJumping(j2,2) && !isWalking(2))
-            j2.setCharacterEtatSTATIC();
-        if(isAttacking(2)){
-            j2.isAttacking();
+        DetecterAction(j1,1);
+        DetecterAction(j2,2);
+
+    }
+
+    public void DetecterAction(Character j, int numChar){
+        if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player"+numChar+"_left_key")))) j.setFacingToLeft();
+        else if (Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player"+numChar+"_right_key")))) j.setFacingToRight();
+        
+        if(isRunning(numChar) && !isWalking(numChar) && !isFalling(j) && !isJumping(j,numChar))
+            j.setCharacterEtatRUN();
+        if(!isRunning(numChar) && isWalking(numChar) && !isFalling(j) && !isJumping(j,numChar))
+            j.setCharacterEtatWALK();
+        if(isJumping(j,numChar) && !isFalling(j) && !isWalking(numChar) && !isRunning(numChar) && canJump(j,numChar))
+            j.setCharacterEtatJUMP();
+        if(isJumping(j,numChar) && isWalking(numChar) && !isRunning(numChar))
+            j.setCharacterEtatJUMPWALK();
+        if(isJumping(j,numChar) && !isWalking(numChar) && isRunning(numChar))
+            j.setCharacterEtatJUMPRUN();
+        if(isFalling(j) && !isWalking(numChar) && !isRunning(numChar))
+            j.setCharacterEtatFALLSTATIC();
+        if(isFalling(j) && !isWalking(numChar) && isRunning(numChar))
+            j.setCharacterEtatFALLRUN();
+        if(isFalling(j) && isWalking(numChar) && !isRunning(numChar))
+            j.setCharacterEtatFALLWALK();
+        if(!isFalling(j) && !isJumping(j,numChar) && !isRunning(numChar) && !isWalking(numChar))
+            j.setCharacterEtatSTATIC();
+        if(isAttacking(numChar)){
+            j.isAttacking();
         }
     }
 
@@ -91,54 +74,36 @@ public class KeyEvent {
     }
 
     public boolean canJump(Character j, int playerNumber){
-        if(playerNumber == 1){
-            if( (
-                !j.isFalling() && 
-                !j.isJumping() &&
-                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_jump_key")))
+        if( 
+            !j.isFalling() && 
+            !j.isJumping() &&
+            Gdx.input.isKeyPressed(
+                Integer.parseInt(
+                    ConfigReader.getKeyProperties("player"+playerNumber+"_jump_key")
                 )
             )
-                return true;
-        } else if(playerNumber == 2){
-            if( (
-                !j.isFalling() && 
-                !j.isJumping() &&
-                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_jump_key")))
-                )
-            )
-                return true;
-        }
+        )
+            return true;
         return false;
     }
 
     public boolean isJumping(Character j, int playerNumber) {
-        if(playerNumber == 1){
-            if(
-                (
-                    !j.isFalling() && 
-                    j.isJumping()
-                ) || 
-                (
-                    !j.isFalling() && 
-                    !j.isJumping() && 
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_jump_key")))
+        if(
+            (
+                !j.isFalling() && 
+                j.isJumping()
+            ) || 
+            (
+                !j.isFalling() && 
+                !j.isJumping() && 
+                Gdx.input.isKeyPressed(
+                    Integer.parseInt(
+                        ConfigReader.getKeyProperties("player"+playerNumber+"_jump_key")
+                    )
                 )
             )
-                return true;
-        } else if(playerNumber == 2){
-            if(
-                (
-                    !j.isFalling() && 
-                    j.isJumping()
-                ) || 
-                (
-                    !j.isFalling() && 
-                    !j.isJumping() && 
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_jump_key")))
-                )
-            )
-                return true;
-        }
+        )
+            return true;
         return false;
     }
 
@@ -149,72 +114,87 @@ public class KeyEvent {
     }
 
     public boolean isRunning(int playerNumber){
-        if(playerNumber == 1){
-            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_run_key"))) && 
-                (   Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_right_key"))) ||
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_left_key")))
+        if(
+            Gdx.input.isKeyPressed(
+                Integer.parseInt(
+                    ConfigReader.getKeyProperties("player"+playerNumber+"_run_key")
+                )
+            ) && 
+            (   
+                Gdx.input.isKeyPressed(
+                    Integer.parseInt(
+                        ConfigReader.getKeyProperties("player"+playerNumber+"_right_key")
+                    )
+                ) ||
+                Gdx.input.isKeyPressed(
+                    Integer.parseInt(
+                        ConfigReader.getKeyProperties("player"+playerNumber+"_left_key")
+                    )
                 )
             )
-                return true;
-        } else if(playerNumber == 2){
-            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_run_key"))) && 
-                (   Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_right_key"))) ||
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_left_key")))
-                )
-            )
-                return true;
-        }
+        )
+            return true;
         return false;
     }
 
     public boolean isWalking(int playerNumber){
-        if(playerNumber == 1){
-            if( !Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_run_key"))) && 
-                (   Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_right_key"))) ||
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_left_key")))
+        if( 
+            !Gdx.input.isKeyPressed(
+                Integer.parseInt(
+                    ConfigReader.getKeyProperties("player"+playerNumber+"_run_key")
+                )
+            ) && 
+            (
+                Gdx.input.isKeyPressed(
+                    Integer.parseInt(
+                        ConfigReader.getKeyProperties("player"+playerNumber+"_right_key")
+                    )
+                ) ||
+                Gdx.input.isKeyPressed(
+                    Integer.parseInt(
+                        ConfigReader.getKeyProperties("player"+playerNumber+"_left_key")
+                    )
                 )
             )
-                return true;
-        } else if(playerNumber == 2){
-            if( !Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_run_key"))) && 
-                (   Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_right_key"))) ||
-                    Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_left_key")))
-                )
-            )
-                return true;
-        }
+        )
+            return true;
         return false;
     }
 
     public boolean isAttacking(int playerNumber){
-        if(playerNumber == 1){
-            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_attack_one_key"))) ||
-                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player1_attack_two_key")))
+        if( 
+            Gdx.input.isKeyPressed(
+                Integer.parseInt(
+                    ConfigReader.getKeyProperties("player"+playerNumber+"_attack_one_key")
+                )
+            ) ||
+            Gdx.input.isKeyPressed(
+                Integer.parseInt(
+                    ConfigReader.getKeyProperties("player"+playerNumber+"_attack_two_key")
+                )
             )
-                return true;
-        } else if(playerNumber == 2){
-            if( Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_attack_one_key"))) ||
-                Gdx.input.isKeyPressed(Integer.parseInt(ConfigReader.getKeyProperties("player2_attack_two_key")))
-            )
-                return true;
-        }
+        )
+            return true;
         return false;
     }
 
-        public boolean isKeyPressed(int key){
-            if(Gdx.input.isKeyPressed(key))
-                return true;
-            return false;
-        }
+    public boolean isKeyPressed(int key){
+        if(Gdx.input.isKeyPressed(key))
+            return true;
+        return false;
+    }
         
-        public int getKeyCodePressed(){
-            for(int i = 1; i<194; i++)
-                if(Gdx.input.isKeyPressed(i)){
-                    // System.out.println(i);
-                    return i;
-                }
-            return 0;
-        }
+    /** 
+     * Il y a 194 caracteres différents géré par libgdx
+     * cf : https://libgdx.badlogicgames.com/ci/nightlies/docs/api/constant-values.html
+    **/
+    public int getKeyCodePressed(){
+        for(int i = 1; i<194; i++)
+            if(Gdx.input.isKeyPressed(i))
+                return i;
+        return 0;
+    }
+
     public void reloadConfig(){
         this.ConfigReader = new ConfigReader();
     }
