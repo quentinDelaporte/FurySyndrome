@@ -99,6 +99,7 @@ public class HotkeyButton {
   }
 
   public void setText(){
+    ConfigReader = new ConfigReader();
     button.setText(Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(this.param_name))));
   }
 

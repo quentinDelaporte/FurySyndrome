@@ -53,17 +53,14 @@ Effet: Téléportation aléatoire
 ## II. TODO
 
 - Ajout des controlleurs xbox, ect ??
-- Implémentation des boost (objet)
-- Implémentation des entité movible (Fleche, boule de feu...)
-- Implémentation d'effet sonore (attaque, mort...)
+- Implémentation des boost (objets)
+- Implémentation des attaques distantes (Fleche, boule de feu...)
+- Implémentation d'effets sonores (attaque, mort...)
 - Implémentation de plusieurs maps
-- Quand on change une config de hotkey: recharger fichier de conf
 - Refactoring
 
 URGENT
 
-- Anim inverse du troll
-- Commentaires
 - Refactoring
-- Quand on change une config de hotkey: recharger fichier de conf
+- Implémenter animations de mort & attaques
 - Débug keyBind
