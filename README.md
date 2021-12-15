@@ -1,54 +1,20 @@
 # FurySyndrom
 
-Temps de dev: 13 Heures
-
 ## I. Les différentes classes
 
 - Mage
 
-  - PV : 100
+  - PV : 1000
   - Force : 20
   - Défense :  25
   - Agilité : 30
 
-- Archer
+- Troll
 
-  - PV : 100
+  - PV : 1600
   - Force : 20
-  - Défense : 25
-  - Agilité : 30
-
-- Guerrier
-
-  - PV : 150
-  - Force : 10
-  - Défense : 50
-  - Agilité : 15
-
-- Ninja
-
-  - PV : 125
-  - Force : 20
-  - Défense :  20
-  - Agilité : 50
-
-## II. Les différents objets
-
-- Epée du gladiateur
-
-Effet: +10 force pendant 5 secondes
-
-- Spectre du mage
-
-Effet: +25 PV
-
-- Sabre du samouraï
-
-Effet: +10 agilité pendant 5 secondes
-
-- Cape du magicien
-
-Effet: Téléportation aléatoire
+  - Défense : 35
+  - Agilité : 10
 
 ## II. TODO
 
@@ -57,10 +23,15 @@ Effet: Téléportation aléatoire
 - Implémentation des attaques distantes (Fleche, boule de feu...)
 - Implémentation d'effets sonores (attaque, mort...)
 - Implémentation de plusieurs maps
-- Refactoring
-
-URGENT
 
 - Refactoring
 - Implémenter animations de mort & attaques
 - Débug keyBind
+
+## III. Crédits
+
+- Textures des maps: Luis Zuno @ansimuz (<https://www.patreon.com/ansimuz>)
+- Musique: Album de In Flames - Album The Mask (arcane version) (<https://www.youtube.com/watch?v=28ZbZavCB_A&list=PL88bwCOZ9J4q9xfaQM-RfU4qAAJilVhEG>)
+- Textures des personnages: Craftpix (<https://craftpix.net/>)
+- Skin/ Raymond "Raeleus" Buckley (<https://ray3k.wordpress.com/comic-ui-skin-for-libgdx/>)
+- Musique non implémenté : Paul Devienne, Thibault Marchal et moi même
