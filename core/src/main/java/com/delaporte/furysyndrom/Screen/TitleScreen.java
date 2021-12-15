@@ -10,14 +10,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.Screen.GameScreen;
 import com.delaporte.furysyndrom.Screen.PlayerNumberSelectorScreen;
 import com.delaporte.furysyndrom.FurySyndrom;
+import com.delaporte.furysyndrom.Sound.BackgroundMusic;
+import com.delaporte.furysyndrom.utils.ConfigReader;
 
 public class TitleScreen extends ScreenAdapter {
 
     FurySyndrom game;
+	private BackgroundMusic gameMusic;
+    private ConfigReader ConfigReader = new ConfigReader();
 
     public TitleScreen(FurySyndrom game) {
         this.game = game;
         game.drawCamera();
+		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/main-menu.mp3");
     }
 
     @Override
@@ -27,7 +32,7 @@ public class TitleScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
                 System.out.println(keyCode);
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setScreen(new PlayerNumberSelectorScreen(game));
+                    game.setScreen(new PlayerNumberSelectorScreen(game, gameMusic));
                 }
                 return true;
             }

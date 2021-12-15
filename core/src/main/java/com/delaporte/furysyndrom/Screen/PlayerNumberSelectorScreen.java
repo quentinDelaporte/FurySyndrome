@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
 import com.delaporte.furysyndrom.Screen.GameScreen;
 import com.delaporte.furysyndrom.Screen.TitleScreen;
+import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.FurySyndrom;
 
 public class PlayerNumberSelectorScreen extends ScreenAdapter {
@@ -19,13 +20,15 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
     FurySyndrom game;
 	private ButtonSelectorPlayer ButtonSelector4Player;
 	private ButtonSelectorPlayer ButtonSelector2Player;
+	private BackgroundMusic gameMusic;
 	private Stage stage;
 
-    public PlayerNumberSelectorScreen(FurySyndrom game) {
+    public PlayerNumberSelectorScreen(FurySyndrom game, BackgroundMusic gameMusic) {
+        this.gameMusic = gameMusic;
         this.game = game;
         stage = new Stage(new ScreenViewport());
-		ButtonSelector2Player = new ButtonSelectorPlayer("2",(int)((game.w-250)/3)*1,(int)((game.h-100)/3)*1,250,100,4, this.game);
-		ButtonSelector4Player = new ButtonSelectorPlayer("4",(int)((game.w-250)/3)*2,(int)((game.h-100)/3)*1,250,100,4, this.game);
+		ButtonSelector2Player = new ButtonSelectorPlayer("2",(int)((game.w-250)/3)*1,(int)((game.h-100)/3)*1,250,100,4, this.game, gameMusic);
+		ButtonSelector4Player = new ButtonSelectorPlayer("4",(int)((game.w-250)/3)*2,(int)((game.h-100)/3)*1,250,100,4, this.game, gameMusic);
 		stage.addActor(ButtonSelector4Player.getButton());
 		stage.addActor(ButtonSelector2Player.getButton());
     }

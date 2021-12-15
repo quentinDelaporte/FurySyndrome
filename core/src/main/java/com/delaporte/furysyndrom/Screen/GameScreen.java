@@ -376,6 +376,7 @@ public class GameScreen extends ScreenAdapter {
         }
         ResumeButton.reset();
         if(j1.isDead() || j2.isDead()){
+            gameMusic.stop();
             game.setScreen(new EndGameScreen(game, (j1.isDead() ? j2 : j1)));
         }
     }

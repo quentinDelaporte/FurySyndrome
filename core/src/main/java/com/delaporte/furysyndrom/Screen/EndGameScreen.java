@@ -10,16 +10,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.Screen.TitleScreen;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Character.Character;
+import com.delaporte.furysyndrom.Sound.BackgroundMusic;
+import com.delaporte.furysyndrom.utils.ConfigReader;
 
 public class EndGameScreen extends ScreenAdapter {
 
     FurySyndrom game;
     private Character winner;
+	private BackgroundMusic gameMusic;
+    private ConfigReader ConfigReader = new ConfigReader();
 
     public EndGameScreen(FurySyndrom game, Character c) {
         this.winner = c;
         this.game = game;
         game.drawCamera();
+		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/end-battle.mp3");
     }
 
     @Override
@@ -28,6 +33,7 @@ public class EndGameScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
+                    gameMusic.stop();
                     game.setScreen(new TitleScreen(game));
                 }
                 return true;
