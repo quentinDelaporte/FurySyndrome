@@ -191,14 +191,14 @@ public class GameScreen extends ScreenAdapter {
         BackButtonHotkey = new BackButton("", 4*col_width, 0, col_width*4, row_height, this.game);
 
         label_HotkeyButton_player1_jump_key = createLabel("Joueur 1: Saut", 4*col_width, 3*row_height, 2*col_width, row_height, labelStyle);
-        label_HotkeyButton_player1_left_key = createLabel("Joueur 1: Droite", 4*col_width, 4*row_height, 2*col_width, row_height, labelStyle);
-        label_HotkeyButton_player1_right_key = createLabel("Joueur 1: Gauche", 4*col_width, 5*row_height, 2*col_width, row_height, labelStyle);
+        label_HotkeyButton_player1_left_key = createLabel("Joueur 1: Gauche", 4*col_width, 4*row_height, 2*col_width, row_height, labelStyle);
+        label_HotkeyButton_player1_right_key = createLabel("Joueur 1: Droite", 4*col_width, 5*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player1_run_key = createLabel("Joueur 1: Courrir", 4*col_width, 6*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player1_attack_one_key = createLabel("Joueur 1: Attaque 1", 4*col_width, 7*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player1_attack_two_key = createLabel("Joueur 1: Attaque 2", 4*col_width, 8*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player2_jump_key = createLabel("Joueur 2: Saut", 9*col_width, 3*row_height, 2*col_width, row_height, labelStyle);
-        label_HotkeyButton_player2_left_key = createLabel("Joueur 2: Droite", 9*col_width, 4*row_height, 2*col_width, row_height, labelStyle);
-        label_HotkeyButton_player2_right_key = createLabel("Joueur 2: Gauche", 9*col_width, 5*row_height, 2*col_width, row_height, labelStyle);
+        label_HotkeyButton_player2_left_key = createLabel("Joueur 2: Gauche", 9*col_width, 4*row_height, 2*col_width, row_height, labelStyle);
+        label_HotkeyButton_player2_right_key = createLabel("Joueur 2: Droite", 9*col_width, 5*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player2_run_key = createLabel("Joueur 2: Courrir", 9*col_width, 6*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player2_attack_one_key = createLabel("Joueur 2: Attaque 1", 9*col_width, 7*row_height, 2*col_width, row_height, labelStyle);
         label_HotkeyButton_player2_attack_two_key = createLabel("Joueur 2: Attaque 2", 9*col_width, 8*row_height, 2*col_width, row_height, labelStyle);
