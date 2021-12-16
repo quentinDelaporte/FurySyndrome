@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -99,7 +98,7 @@ public abstract class Character {
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
+        this.hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), hitboxWidth, hitboxHeight);
         this.etat = CharacterEtat.STATIC;
         this.facing = CharacterFacing.LEFT;
         this.animation = animation;
@@ -159,8 +158,8 @@ public abstract class Character {
         // drawHitbox(batch, getAttackHitbox(), Color.RED);
         // drawHitbox(batch, hitbox, Color.GREEN);
         selectAnimation();
-        batch.draw(animation.getAnimation(stateTime), (float) xPosition, (float) yPosition, (float) width, (float) height);
-        hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), (int) hitboxWidth, (int) hitboxHeight);
+        batch.draw(animation.getAnimation(stateTime), xPosition, yPosition, width, height);
+        hitbox = new Rectangle((int)(xPosition + hitboxOffsetX), (int) (yPosition + hitboxOffsetY), hitboxWidth, hitboxHeight);
         characterHealImage.draw(batch, stateTime);
     }
 
@@ -215,11 +214,11 @@ public abstract class Character {
                 this.yPosition +=2;
                 hitbox.x += movespeed;
                 hitbox.y +=2;
-            } else if(!detectCollision((float)(xPosition+movespeed), yPosition+4, width, height)){
-                this.xPosition += movespeed;
-                this.yPosition +=4;
-                hitbox.x += movespeed;
-                hitbox.y +=4;
+            // } else if(!detectCollision((float)(xPosition+movespeed), yPosition+4, width, height)){
+            //     this.xPosition += movespeed;
+            //     this.yPosition +=4;
+            //     hitbox.x += movespeed;
+            //     hitbox.y +=4;
             } else if(!detectCollision((float)(xPosition+movespeed), yPosition+8, width, height)){
                 this.xPosition += movespeed;
                 this.yPosition +=8;
@@ -425,11 +424,8 @@ public abstract class Character {
         Rectangle attackHitbox = getAttackHitbox();
         if(canAttack){
             for(Character c : characters){
-                if(c != this){
-                    if(attackHitbox.overlaps(c.getHitbox())){
-                        c.getDamaged(this.strength);
-                    }
-                }
+                if(c != this && attackHitbox.overlaps(c.getHitbox()))
+                    c.getDamaged(this.strength);
             }
             canAttack = false;
             Timer.schedule(new Task() {
@@ -442,7 +438,7 @@ public abstract class Character {
     }
 
     public void getDamaged(int damageHp){
-        this.hp -= (int)((1.0 - ((float) this.defence/100.0)) * (float)damageHp);
+        this.hp -= (int)((1.0 - ( this.defence/100.0)) * damageHp);
         characterHealImage.setHealBarPercent(hp, maxHp);
     }
 

@@ -1,18 +1,13 @@
 package com.delaporte.furysyndrom.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.delaporte.furysyndrom.FurySyndrom;
-import com.delaporte.furysyndrom.Screen.GameScreen;
 
 public class SoundButton extends CustomButton {
   private ImageButton button;
@@ -41,6 +36,7 @@ public class SoundButton extends CustomButton {
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isSoundSettingsOpen=true;
         sound.play();
+        sound = null;
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -196,6 +196,6 @@ public class KeyEvent {
     }
 
     public void reloadConfig(){
-        this.ConfigReader = new ConfigReader();
+        this.ConfigReader.reload();
     }
 }

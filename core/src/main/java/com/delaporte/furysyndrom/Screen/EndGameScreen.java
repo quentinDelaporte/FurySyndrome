@@ -6,8 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-
-import com.delaporte.furysyndrom.Screen.TitleScreen;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Character.Character;
 import com.delaporte.furysyndrom.Sound.BackgroundMusic;

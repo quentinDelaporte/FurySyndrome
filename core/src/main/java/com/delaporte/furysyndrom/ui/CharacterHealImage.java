@@ -1,24 +1,11 @@
 package com.delaporte.furysyndrom.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.delaporte.furysyndrom.FurySyndrom;
-import com.delaporte.furysyndrom.Screen.GameScreen;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -27,8 +14,6 @@ public class CharacterHealImage extends Actor {
   private Image CharacterHealImage;
   private int x;
   private int y;
-  private int width;
-  private int height;
   private Texture texture;
   private Color color = Color.RED;
   private int healBarWidth = 99;
@@ -37,8 +22,6 @@ public class CharacterHealImage extends Actor {
   public CharacterHealImage(String path, int x, int y, int width, int height){
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
     this.CharacterHealImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("../assets/Texture/UI/HEAL_STATE/PNG/" + path)))));
     this.CharacterHealImage.setSize(width, height);
     this.CharacterHealImage.setPosition(x,y);

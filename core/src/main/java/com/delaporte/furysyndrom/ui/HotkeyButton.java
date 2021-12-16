@@ -1,70 +1,47 @@
 package com.delaporte.furysyndrom.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
-import com.delaporte.furysyndrom.Screen.GameScreen;
 import com.delaporte.furysyndrom.utils.ConfigReader;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Sound.AmbiantSound;
 
 public class HotkeyButton {
-  private Skin skin;
+  private Skin skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
   private TextButton button;
-  private boolean nextGameState = false;
-  private String param_name;
-  private String key_value;
+  private String paramName;
+  private String keyValue;
   private boolean isActive = false;
-  private ConfigReader ConfigReader = new ConfigReader();
+  private ConfigReader configReader = new ConfigReader();
   private boolean isEnabled = true;
   public int x;
   public int y;
   public int width;
   public int height;
-  public AmbiantSound sound= new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
+  public AmbiantSound sound = new AmbiantSound(Float.parseFloat(configReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
   FurySyndrom game;
 
-  public HotkeyButton(int x, int y, int width, int height, FurySyndrom game, String param_name){
+  public HotkeyButton(int x, int y, int width, int height, FurySyndrom game, String paramName){
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.game = game;
     isActive = false;
-    this.param_name = param_name;
-    this.key_value = Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(param_name)));
+    this.paramName = paramName;
+    this.keyValue = Input.Keys.toString(Integer.parseInt(configReader.getKeyProperties(paramName)));
     generer();
   }
 
   public void generer(){
-    skin = new Skin(Gdx.files.internal("../assets/Skin/comic-ui.json"));
-    button = new TextButton(key_value+"", skin);
-    //Text: mapper les keysCode aux touches 
+    button = new TextButton(keyValue+"", skin);
     button.setSize(width, height);
     button.setPosition(x,y);
-    button.setText(key_value);
+    button.setText(keyValue);
     button.addListener(new InputListener() {    
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -99,12 +76,12 @@ public class HotkeyButton {
   }
 
   public void setText(){
-    ConfigReader = new ConfigReader();
-    button.setText(Input.Keys.toString(Integer.parseInt(ConfigReader.getKeyProperties(this.param_name))));
+    configReader.reload();
+    button.setText(Input.Keys.toString(Integer.parseInt(configReader.getKeyProperties(this.paramName))));
   }
 
   public void updateVolume() {
-    sound.setVolume(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")));
+    sound.setVolume(Float.parseFloat(configReader.getGeneralProperties("Sound_Volume")));
   }
   
 }

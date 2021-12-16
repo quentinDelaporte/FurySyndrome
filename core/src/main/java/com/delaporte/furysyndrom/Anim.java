@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.files.FileHandle;
 
 public class Anim {
-    private Animation<TextureRegion> Animation;
+    private Animation<TextureRegion> animation;
     private Texture sheet;
     private TextureRegion[] frames;
 
@@ -21,11 +21,11 @@ public class Anim {
                 frames[index++] = tmp[i][j];
             }
         }
-        Animation = new Animation<TextureRegion>(speed, frames);
+        animation = new Animation<TextureRegion>(speed, frames);
     }
 
     public TextureRegion getAnimation(float stateTime) {
-        return Animation.getKeyFrame(stateTime, true);
+        return animation.getKeyFrame(stateTime, true);
     }
 
 }

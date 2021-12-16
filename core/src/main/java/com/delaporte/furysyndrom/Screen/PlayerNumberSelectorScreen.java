@@ -1,8 +1,6 @@
 package com.delaporte.furysyndrom.Screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import com.delaporte.furysyndrom.ui.ButtonSelectorPlayer;
-import com.delaporte.furysyndrom.Screen.GameScreen;
-import com.delaporte.furysyndrom.Screen.TitleScreen;
-import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 import com.delaporte.furysyndrom.FurySyndrom;
 
 public class PlayerNumberSelectorScreen extends ScreenAdapter {
@@ -20,15 +15,14 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
     FurySyndrom game;
 	private ButtonSelectorPlayer ButtonSelector4Player;
 	private ButtonSelectorPlayer ButtonSelector2Player;
-	private BackgroundMusic gameMusic;
 	private Stage stage;
+    private Texture textureBg = new Texture(Gdx.files.internal("../assets/MainImage.png"));
 
-    public PlayerNumberSelectorScreen(FurySyndrom game, BackgroundMusic gameMusic) {
-        this.gameMusic = gameMusic;
+    public PlayerNumberSelectorScreen(FurySyndrom game) {
         this.game = game;
         stage = new Stage(new ScreenViewport());
-		ButtonSelector2Player = new ButtonSelectorPlayer("2",(int)((game.w-250)/3)*1,(int)((game.h-100)/3)*1,250,100,4, this.game, gameMusic);
-		ButtonSelector4Player = new ButtonSelectorPlayer("4",(int)((game.w-250)/3)*2,(int)((game.h-100)/3)*1,250,100,4, this.game, gameMusic);
+		ButtonSelector2Player = new ButtonSelectorPlayer("2",((game.w-250)/3)*1,((game.h-100)/3)*1,250,100,4, this.game);
+		ButtonSelector4Player = new ButtonSelectorPlayer("4",((game.w-250)/3)*2,((game.h-100)/3)*1,250,100,4, this.game);
 		stage.addActor(ButtonSelector4Player.getButton());
 		stage.addActor(ButtonSelector2Player.getButton());
     }
@@ -45,7 +39,7 @@ public class PlayerNumberSelectorScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         
-        game.batch.draw(new Texture(Gdx.files.internal("../assets/MainImage.png")), 0, 0, 640, 480);
+        game.batch.draw(textureBg, 0, 0, 640, 480);
         game.batch.end();	
         stage.act();
         stage.draw();

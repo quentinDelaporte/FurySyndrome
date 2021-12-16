@@ -7,22 +7,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
-import com.delaporte.furysyndrom.Screen.GameScreen;
-import com.delaporte.furysyndrom.Screen.PlayerNumberSelectorScreen;
 import com.delaporte.furysyndrom.FurySyndrom;
-import com.delaporte.furysyndrom.Sound.BackgroundMusic;
-import com.delaporte.furysyndrom.utils.ConfigReader;
 
 public class TitleScreen extends ScreenAdapter {
 
     FurySyndrom game;
-	private BackgroundMusic gameMusic;
-    private ConfigReader ConfigReader = new ConfigReader();
+    private Texture textureBg = new Texture(Gdx.files.internal("../assets/MainImage.png"));
 
     public TitleScreen(FurySyndrom game) {
         this.game = game;
         game.drawCamera();
-		gameMusic = new BackgroundMusic(Float.parseFloat(ConfigReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/main-menu.mp3");
     }
 
     @Override
@@ -30,9 +24,8 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {
-                System.out.println(keyCode);
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setScreen(new PlayerNumberSelectorScreen(game, gameMusic));
+                    game.setScreen(new PlayerNumberSelectorScreen(game));
                 }
                 return true;
             }
@@ -46,7 +39,7 @@ public class TitleScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.setTitle("FurySyndrom");
         game.batch.begin();
-        game.batch.draw(new Texture(Gdx.files.internal("../assets/MainImage.png")), 0, 0, 640, 480);
+        game.batch.draw(textureBg, 0, 0, 640, 480);
         game.camera.update();
         game.batch.end();
     }

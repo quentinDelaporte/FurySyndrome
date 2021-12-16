@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
-import com.delaporte.furysyndrom.Screen.GameScreen;
-import com.delaporte.furysyndrom.Screen.PlayerNumberSelectorScreen;
 import com.delaporte.furysyndrom.Screen.TitleScreen;
 
 public class FurySyndrom extends Game {

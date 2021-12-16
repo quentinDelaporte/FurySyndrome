@@ -1,15 +1,7 @@
 package com.delaporte.furysyndrom.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Sound.AmbiantSound;
@@ -25,8 +17,8 @@ public abstract class CustomButton {
   public int y;
   public int width;
   public int height;
-  private ConfigReader ConfigReader = new ConfigReader();
-  public AmbiantSound sound = new AmbiantSound(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
+  private ConfigReader configReader = new ConfigReader();
+  public AmbiantSound sound = new AmbiantSound(Float.parseFloat(configReader.getGeneralProperties("Sound_Volume")), "../assets/Sound/FX/UI/menuNavigation.wav");
   FurySyndrom game;
 
   protected CustomButton(String text, int x, int y, int width, int height, FurySyndrom game){
@@ -40,7 +32,7 @@ public abstract class CustomButton {
   }
 
   public void updateVolume() {
-    sound.setVolume(Float.parseFloat(ConfigReader.getGeneralProperties("Sound_Volume")));
+    sound.setVolume(Float.parseFloat(configReader.getGeneralProperties("Sound_Volume")));
   }
 
   protected abstract void generer();

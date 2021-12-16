@@ -1,19 +1,12 @@
 package com.delaporte.furysyndrom.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.*;
 import com.delaporte.furysyndrom.FurySyndrom;
 import com.delaporte.furysyndrom.Screen.GameScreen;
-import com.delaporte.furysyndrom.Sound.AmbiantSound;
-import com.delaporte.furysyndrom.Sound.BackgroundMusic;
 
 public class ButtonSelectorPlayer extends CustomButton {
   private Skin skin;
@@ -21,9 +14,8 @@ public class ButtonSelectorPlayer extends CustomButton {
   private boolean nextGameState = false;
   private int nbPlayer=0;
   private int nbPlayerBtn;
-  private BackgroundMusic gameMusic;
   
-  public ButtonSelectorPlayer(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game, BackgroundMusic gameMusic) {
+  public ButtonSelectorPlayer(String text, int x, int y, int width, int height, final int nbPlayerInput, FurySyndrom game) {
     super(
       text,
       x,
@@ -32,7 +24,6 @@ public class ButtonSelectorPlayer extends CustomButton {
       height,
       game
     );
-    this.gameMusic = gameMusic;
     nbPlayerBtn = nbPlayerInput;
   }
 
@@ -46,7 +37,6 @@ public class ButtonSelectorPlayer extends CustomButton {
     button.addListener(new InputListener() {    
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-        gameMusic.stop();
         nextGameState = true;
         nbPlayer=nbPlayerBtn;
         if(getNbPlayer() != 0){

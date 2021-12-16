@@ -12,13 +12,11 @@ public class AmbiantSound {
         sound = Gdx.audio.newMusic(Gdx.files.internal(path));
         sound.setLooping(false);
         sound.setVolume(this.volume);
-        
     }
     
     public void setVolume(float volume) {
         this.volume = volume;
         sound.setVolume(volume);
-
     }
 
     public void play(){
