@@ -99,15 +99,16 @@ public class GameScreen extends ScreenAdapter {
     private int rowHeight = 0;
     private LabelStyle labelStyle = new Label.LabelStyle();
     private LabelStyle titleStyle = new Label.LabelStyle();
-    private BitmapFont font;
-    private BitmapFont font2;
+    private BitmapFont font = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
+    private BitmapFont font2 = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
+    private Texture pauseBackground = new Texture(Gdx.files.internal("../assets/pauseBg.jpg"));
     
     public GameScreen(FurySyndrom game) {
         this.game = game;
 		map01 = new Map("../assets/Map/map2.tmx");
-		gameMusic = new BackgroundMusic(Float.parseFloat(configReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/Battle-1.mp3");
+		gameMusic = new BackgroundMusic(Float.parseFloat(configReader.getGeneralProperties("Music_Volume")), "../assets/Sound/Music/Battle.mp3");
         tiledMapRenderer = map01.getTiledMapRenderer();
-		j1 = new Mage(map01,7,1600,700);
+		j1 = new Mage(map01,7,400,700);
 		j2 = new Troll(map01,7,1500,700);
         characters.add(j1);
         characters.add(j2);
@@ -118,13 +119,11 @@ public class GameScreen extends ScreenAdapter {
         selectedHotkeyPlayer = HotkeyPlayer.NONE;
         colWidth = game.w / colNumber;
         rowHeight = game.h / rowNumber;
-
-        font = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
+        
         labelStyle.font = font;
         labelStyle.fontColor = Color.WHITE;
         font.getData().setScale(1.3f);
 
-        font2 = new BitmapFont(Gdx.files.internal("../assets/Skin/Iosevka-Slab.fnt"));
         titleStyle.font = font2;
         titleStyle.fontColor = Color.WHITE;
         font2.getData().setScale(3f);
@@ -334,7 +333,7 @@ public class GameScreen extends ScreenAdapter {
             j1.draw(game.batch, stateTime);
             j2.draw(game.batch, stateTime);
         } else {
-            game.batch.draw(new Texture(Gdx.files.internal("../assets/pauseBg.jpg")), 0, 0, game.w, game.h);
+            game.batch.draw(pauseBackground, 0, 0, game.w, game.h);
             if(!isSoundSettingsOpen && !isSettingsOpen){
                 Gdx.input.setInputProcessor(stagePause);
             } else if (isSoundSettingsOpen){

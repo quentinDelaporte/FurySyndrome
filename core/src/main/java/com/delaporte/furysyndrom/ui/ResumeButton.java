@@ -35,7 +35,8 @@ public class ResumeButton extends CustomButton {
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isPaused=false;
-        sound.play();
+        if(sound != null)
+          sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

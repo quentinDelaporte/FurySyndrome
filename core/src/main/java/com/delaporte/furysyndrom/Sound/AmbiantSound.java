@@ -20,7 +20,8 @@ public class AmbiantSound {
     }
 
     public void play(){
-        sound.play();
+        if(sound != null)
+            sound.play();
     }
 
     public float getVolume(){

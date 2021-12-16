@@ -35,8 +35,8 @@ public class SoundButton extends CustomButton {
       @Override
       public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
         isSoundSettingsOpen=true;
-        sound.play();
-        sound = null;
+        if(sound != null)
+          sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -42,7 +42,8 @@ public class ButtonSelectorPlayer extends CustomButton {
         if(getNbPlayer() != 0){
           game.setScreen(new GameScreen(game));
         }
-        sound.play();
+        if(sound != null)
+          sound.play();
       }
       @Override
       public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
